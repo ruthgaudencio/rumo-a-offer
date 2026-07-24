@@ -1,6 +1,6 @@
-/* Service worker — Rumo à Offer
+ /* Service worker — Rumo à Offer
    Cache do app shell para funcionar offline e permitir instalação como app. */
-const CACHE = "rumo-offer-v1";
+const CACHE = "rumo-offer-v2";
 const ASSETS = [
   "./",
   "./index.html",
@@ -44,8 +44,8 @@ self.addEventListener("fetch", e => {
     return;
   }
 
-  // Fontes do Google (Google Fonts): stale-while-revalidate para cachear após 1º uso online.
-  if (url.hostname.includes("fonts.googleapis.com") || url.hostname.includes("fonts.gstatic.com")) {
+  // Google Fonts + SDK do Firebase (gstatic): stale-while-revalidate para cachear após 1º uso online.
+  if (url.hostname.includes("fonts.googleapis.com") || url.hostname.includes("gstatic.com")) {
     e.respondWith(
       caches.open(CACHE).then(c =>
         c.match(req).then(cached => {
