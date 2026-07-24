@@ -1,14 +1,14 @@
- /* Service worker — Rumo à Offer
+/* Service worker — Rumo à Offer
    Cache do app shell para funcionar offline e permitir instalação como app. */
-const CACHE = "rumo-offer-v2";
+const CACHE = "rumo-offer-v3";
 const ASSETS = [
   "./",
   "./index.html",
   "./manifest.webmanifest",
-  "./icons/icon-192.png",
-  "./icons/icon-512.png",
-  "./icons/apple-touch-icon.png",
-  "./icons/favicon-32.png"
+  "./icon-192.png",
+  "./icon-512.png",
+  "./apple-touch-icon.png",
+  "./favicon-32.png"
 ];
 
 self.addEventListener("install", e => {
