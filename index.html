@@ -205,6 +205,10 @@ nav{position:fixed;bottom:0;left:0;right:0;z-index:40;background:var(--surface);
 .navbtn.active{color:var(--indigo)}
 .navbtn.active .nbg{background:var(--indigo-soft)}
 .nbg{padding:4px 14px;border-radius:11px;transition:background .2s}
+.sidebrand{display:none;align-items:center;gap:10px;padding:0 6px 18px;margin-bottom:8px;border-bottom:1px solid var(--line)}
+.sidebrand .sbmark{width:32px;height:32px;border-radius:9px;background:linear-gradient(160deg,var(--indigo-deep),var(--indigo));display:grid;place-items:center;flex:none}
+.sidebrand .sbmark svg{width:19px;height:19px}
+.sidebrand b{font-family:var(--display);font-weight:600;font-size:1.04rem;color:var(--ink);letter-spacing:-.01em}
 .toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--paper);
   padding:11px 18px;border-radius:999px;font-size:.84rem;font-weight:600;box-shadow:var(--shadow-lg);opacity:0;pointer-events:none;transition:.28s;z-index:60;white-space:nowrap;max-width:90vw}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -226,6 +230,27 @@ nav{position:fixed;bottom:0;left:0;right:0;z-index:40;background:var(--surface);
 .modalfoot{font-size:.76rem;color:var(--faint);margin-top:14px;line-height:1.5;text-align:center}
 @media(max-width:420px){.ar-fields{gap:6px}.field input{padding:8px 4px}.hero-card .big{font-size:1.45rem}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* ---------- Desktop / PC: barra lateral + layout largo (celular não muda) ---------- */
+@media(min-width:900px){
+  body{padding-left:236px;padding-bottom:28px}
+  nav{top:0;bottom:0;left:0;right:auto;width:236px;flex-direction:column;justify-content:flex-start;
+      align-items:stretch;border-top:none;border-right:1px solid var(--line);padding:24px 16px;gap:5px;box-shadow:none}
+  .sidebrand{display:flex}
+  .navbtn{flex:0 0 auto;flex-direction:row;justify-content:flex-start;gap:13px;max-width:none;width:100%;
+      padding:12px 15px;font-size:.92rem;border-radius:12px}
+  .navbtn .nbg{padding:0;background:none!important;display:flex}
+  .navbtn svg{width:21px;height:21px}
+  .navbtn.active{background:var(--indigo-soft)}
+  header{max-width:920px;margin:0 auto;border-radius:0 0 26px 26px}
+  header .brand{display:none}
+  .brandrow{justify-content:flex-end}
+  main{max-width:920px;margin:0 auto}
+  .statgrid{grid-template-columns:repeat(4,1fr)}
+  #todayBlocks{column-count:2;column-gap:16px}
+  #todayBlocks .arearow{break-inside:avoid}
+  #reviewList,#insightList{column-count:2;column-gap:16px}
+  #reviewList .revitem,#insightList .insitem{break-inside:avoid}
+}
 </style>
 </head>
 <body>
@@ -314,6 +339,7 @@ nav{position:fixed;bottom:0;left:0;right:0;z-index:40;background:var(--surface);
 </main>
 
 <nav>
+  <div class="sidebrand"><span class="sbmark"><svg viewBox="0 0 24 24" fill="none"><path d="M3 17l5-5 4 3 7-8" stroke="#FAF6EC" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="19" cy="7" r="2.3" fill="#FAF6EC"/></svg></span><b>Rumo à Offer</b></div>
   <button class="navbtn active" data-view="hoje"><span class="nbg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 22V12h6v10"/></svg></span>Hoje</button>
   <button class="navbtn" data-view="progresso"><span class="nbg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg></span>Progresso</button>
   <button class="navbtn" data-view="revisoes"><span class="nbg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4a7 7 0 100 14 7 7 0 000-14z"/><path d="M11 8v3l2 1"/><path d="M20 20l-3-3"/></svg></span>Revisar</button>
