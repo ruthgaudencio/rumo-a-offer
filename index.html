@@ -206,8 +206,24 @@ nav{position:fixed;bottom:0;left:0;right:0;z-index:40;background:var(--surface);
 .navbtn.active .nbg{background:var(--indigo-soft)}
 .nbg{padding:4px 14px;border-radius:11px;transition:background .2s}
 .toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--paper);
-  padding:11px 18px;border-radius:999px;font-size:.84rem;font-weight:600;box-shadow:var(--shadow-lg);opacity:0;pointer-events:none;transition:.28s;z-index:60;white-space:nowrap}
+  padding:11px 18px;border-radius:999px;font-size:.84rem;font-weight:600;box-shadow:var(--shadow-lg);opacity:0;pointer-events:none;transition:.28s;z-index:60;white-space:nowrap;max-width:90vw}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.synced-chip{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:600;color:var(--jade);background:var(--jade-soft);padding:5px 11px;border-radius:999px}
+.synced-chip svg{width:14px;height:14px}
+.modalbg{position:fixed;inset:0;z-index:80;background:rgba(20,15,8,.5);backdrop-filter:blur(3px);display:none;align-items:flex-end;justify-content:center;padding:0}
+.modalbg.open{display:flex}
+.modalcard{background:var(--surface);width:100%;max-width:460px;border-radius:22px 22px 0 0;padding:22px 20px calc(env(safe-area-inset-bottom) + 22px);box-shadow:var(--shadow-lg);animation:slideup .3s ease}
+@media(min-width:520px){.modalbg{align-items:center}.modalcard{border-radius:22px;margin:0 16px}}
+@keyframes slideup{from{transform:translateY(30px);opacity:.6}to{transform:none;opacity:1}}
+.modalh{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.modalh h3{font-family:var(--display);font-weight:600;font-size:1.2rem}
+.mclose{width:32px;height:32px;border-radius:9px;background:var(--surface-2);color:var(--muted);font-size:1rem;display:grid;place-items:center}
+.modalp{font-size:.86rem;color:var(--muted);line-height:1.5;margin-bottom:16px}
+.flabel{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600;margin:10px 0 5px}
+.modalcard input{width:100%;padding:12px 13px;border:1px solid var(--line-strong);border-radius:11px;background:var(--surface-2)}
+.modalcard input:focus{outline:none;border-color:var(--indigo);box-shadow:0 0 0 3px var(--indigo-soft)}
+.autherr{color:var(--rose);font-size:.82rem;font-weight:500;margin-top:12px;min-height:1px}
+.modalfoot{font-size:.76rem;color:var(--faint);margin-top:14px;line-height:1.5;text-align:center}
 @media(max-width:420px){.ar-fields{gap:6px}.field input{padding:8px 4px}.hero-card .big{font-size:1.45rem}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -285,6 +301,7 @@ nav{position:fixed;bottom:0;left:0;right:0;z-index:40;background:var(--surface);
       <div class="presetrow" id="presetRow"></div>
       <div class="sd" style="color:var(--muted);font-size:.78rem;margin-top:4px">Presets já calibrados para ~30 min nos dias úteis e ~1h30 no fim de semana. A proporção muda conforme a fase. Depois é só ajustar os minutos abaixo.</div></div>
     <div class="card"><div class="card-h"><h3>Minutos por área (por dia)</h3></div><div id="planEditor"></div></div>
+    <div class="card" id="syncCard"><div class="card-h"><h3>Sincronizar entre aparelhos</h3></div><div id="syncBody"></div></div>
     <div class="card"><div class="card-h"><h3>Backup dos dados</h3></div>
       <div class="sd" style="color:var(--muted);font-size:.8rem;margin-bottom:12px">Seus dados ficam salvos neste dispositivo. Para usar no celular e no computador com os mesmos dados, exporte aqui e importe no outro aparelho.</div>
       <button class="ghostbtn" id="exportBtn" style="margin-bottom:10px">Exportar backup (.json)</button>
@@ -306,9 +323,45 @@ nav{position:fixed;bottom:0;left:0;right:0;z-index:40;background:var(--surface);
 
 <div class="toast" id="toast"></div>
 
+<!-- Modal de login para sincronização -->
+<div class="modalbg" id="authModal">
+  <div class="modalcard">
+    <div class="modalh"><h3>Sincronizar estudos</h3><button class="mclose" id="authClose" aria-label="Fechar">✕</button></div>
+    <p class="modalp">Use o <b>mesmo email e senha</b> nos dois aparelhos pra ver seus estudos sincronizados entre o Mac e o iPhone.</p>
+    <label class="flabel">Email</label>
+    <input type="email" id="authEmail" placeholder="voce@email.com" autocomplete="username">
+    <label class="flabel">Senha</label>
+    <input type="password" id="authPass" placeholder="mínimo 6 caracteres" autocomplete="current-password">
+    <div class="autherr" id="authErr"></div>
+    <button class="bigbtn" id="authSignInBtn" style="margin-top:14px">Entrar</button>
+    <button class="ghostbtn" id="authSignUpBtn" style="margin-top:9px">Criar conta nova</button>
+    <p class="modalfoot">É a primeira vez? Toque em <b>Criar conta nova</b>. Depois, no outro aparelho, use <b>Entrar</b> com o mesmo email e senha.</p>
+  </div>
+</div>
+
+<!-- Firebase (carregado da CDN; se offline, o app roda só local) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+
 <script>
 "use strict";
 const STORAGE_KEY="rumo-offer-v1";
+/* ============================================================
+   SINCRONIZAÇÃO ENTRE APARELHOS (Firebase) — opcional
+   Cole abaixo a config do seu projeto Firebase para ativar a
+   sincronização automática entre o Mac e o iPhone.
+   Enquanto estiver "COLE_AQUI", o app funciona normal, só local.
+============================================================ */
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyAJSqz890yuOUu-GRzj-4ubLMiH6VmHT2o",
+  authDomain: "rumo-a-offer.firebaseapp.com",
+  projectId: "rumo-a-offer",
+  storageBucket: "rumo-a-offer.firebasestorage.app",
+  messagingSenderId: "52551977283",
+  appId: "1:52551977283:web:5094b74c8739dd697d87f6"
+};
+const SYNC_ON = FIREBASE_CONFIG.apiKey && FIREBASE_CONFIG.apiKey !== "COLE_AQUI";
 const AREAS=[
   {key:"quant",name:"GMAT Quant",color:"#A66A3B"},
   {key:"math",name:"Mental math",color:"#5F7A55"},
@@ -360,7 +413,7 @@ function load(){try{const raw=localStorage.getItem(STORAGE_KEY);if(!raw)return d
   }
   return merged;}
   catch(e){return defaultState();}}
-function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state));}catch(e){toast("Não foi possível salvar 😕");}}
+function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state));}catch(e){toast("Não foi possível salvar 😕");}if(typeof pushRemote==="function")pushRemote();}
 
 function todayKey(d){d=d||new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
 function parseKey(k){const[y,m,dd]=k.split("-").map(Number);return new Date(y,m-1,dd);}
@@ -384,7 +437,7 @@ function studiedOn(key){const l=state.logs[key];if(!l)return false;if(l.complete
 function computeStreak(){let n=0;let cur=new Date();if(!studiedOn(todayKey(cur)))cur=addDays(cur,-1);
   while(studiedOn(todayKey(cur))){n++;cur=addDays(cur,-1);}return n;}
 
-function renderAll(){renderHeader();renderToday();renderProgress();renderReviews();renderInsights();renderPlanEditor();}
+function renderAll(){renderHeader();renderToday();renderProgress();renderReviews();renderInsights();renderPlanEditor();renderSync();}
 function renderHeader(){
   const days=daysBetween(new Date(),parseKey(state.config.interviewDate));
   const cd=document.getElementById("countdownDays"),cs=document.getElementById("countdownSub");
@@ -587,7 +640,105 @@ document.getElementById("resetBtn").addEventListener("click",()=>{if(confirm("Ap
 let toastT;function toast(msg){const el=document.getElementById("toast");el.textContent=msg;el.classList.add("show");clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove("show"),2200);}
 let headerT;function debounceHeader(){clearTimeout(headerT);headerT=setTimeout(renderHeader,400);}
 
+/* ============================================================
+   SINCRONIZAÇÃO (Firebase) — isolada: se falhar, o app segue local
+============================================================ */
+let fbAuth=null, fbDB=null, syncUser=null, unsub=null, pushT=null, applyingRemote=false;
+function initFirebase(){
+  if(!SYNC_ON || typeof firebase==="undefined") return;
+  try{
+    firebase.initializeApp(FIREBASE_CONFIG);
+    fbAuth=firebase.auth(); fbDB=firebase.firestore();
+    fbDB.enablePersistence({synchronizeTabs:true}).catch(()=>{});
+    fbAuth.onAuthStateChanged(u=>{
+      syncUser=u; renderSync();
+      if(u){ startSync(); }
+      else if(unsub){ unsub(); unsub=null; }
+    });
+  }catch(e){ console.warn("Firebase init falhou",e); }
+}
+function docRef(){ return fbDB.collection("users").doc(syncUser.uid); }
+async function startSync(){
+  try{
+    const snap=await docRef().get();
+    if(snap.exists && snap.data() && snap.data().data){
+      applyingRemote=true; mergeRemote(JSON.parse(snap.data().data)); applyingRemote=false;
+      save(); applyTheme(); renderAll(); toast("Sincronizado ✓");
+    }
+    pushRemoteNow(); // garante o merge no remoto
+    if(unsub) unsub();
+    unsub=docRef().onSnapshot(s=>{
+      if(!s.exists || s.metadata.hasPendingWrites) return; // ignora eco da própria escrita
+      const d=s.data(); if(!d||!d.data) return;
+      applyingRemote=true; mergeRemote(JSON.parse(d.data)); applyingRemote=false;
+      save(); applyTheme(); renderAll();
+    }, err=>console.warn("snapshot",err));
+  }catch(e){ console.warn("startSync",e); }
+}
+function mergeRemote(remote){
+  if(!remote || !remote.config) return;
+  const merged={...(remote.logs||{})};
+  const act=x=>Object.values(x.areas||{}).reduce((s,a)=>s+(a.min||0)+(a.q||0)+((a.rev||a.insight)?5:0),0)+(x.completed?3:0)+((x.note||"")?2:0);
+  Object.entries(state.logs||{}).forEach(([k,l])=>{ const r=merged[k]; merged[k]=(!r||act(l)>=act(r))?l:r; });
+  state.logs=merged;
+  state.resolved={...(remote.resolved||{}),...(state.resolved||{})};
+  state.config={...state.config,...remote.config};
+  if(remote.hideHelp) state.hideHelp=true;
+}
+function pushRemote(){ if(!syncUser||applyingRemote) return; clearTimeout(pushT); pushT=setTimeout(pushRemoteNow,900); }
+function pushRemoteNow(){
+  if(!syncUser) return;
+  try{ docRef().set({data:JSON.stringify(state),updatedAt:firebase.firestore.FieldValue.serverTimestamp()}).catch(e=>console.warn("push",e)); }
+  catch(e){ console.warn("pushNow",e); }
+}
+function authErrMsg(e){ const c=(e&&e.code)||"";
+  if(c.includes("email-already-in-use"))return "Esse email já tem conta. Use “Entrar”.";
+  if(c.includes("invalid-email"))return "Email inválido.";
+  if(c.includes("weak-password"))return "Senha muito curta (mínimo 6 caracteres).";
+  if(c.includes("wrong-password")||c.includes("invalid-credential")||c.includes("invalid-login"))return "Email ou senha incorretos.";
+  if(c.includes("user-not-found"))return "Não achei conta com esse email. Toque em “Criar conta nova”.";
+  if(c.includes("too-many-requests"))return "Muitas tentativas. Espere um pouco e tente de novo.";
+  if(c.includes("network"))return "Sem conexão agora. Tente novamente.";
+  return "Não deu certo. Tente de novo."; }
+function renderSync(){
+  const el=document.getElementById("syncBody"); if(!el) return;
+  if(!SYNC_ON){
+    el.innerHTML=`<div style="color:var(--muted);font-size:.82rem;line-height:1.5">A sincronização automática ainda não está configurada neste app. Por enquanto, use o <b>backup manual</b> abaixo (exportar/importar) para levar seus dados entre aparelhos.</div>`;
+    return;
+  }
+  if(syncUser){
+    el.innerHTML=`<div class="setrow"><div><div class="sl">Conectado ✓</div><div class="sd">${escapeHtml(syncUser.email||"")}</div></div><button class="dangerbtn" id="signOutBtn">Sair</button></div>
+      <div style="color:var(--muted);font-size:.78rem;margin-top:12px;line-height:1.5">Seus estudos sincronizam sozinhos. Entre com <b>esta mesma conta</b> no outro aparelho pra ver tudo lá também.</div>`;
+  } else {
+    el.innerHTML=`<div style="color:var(--muted);font-size:.82rem;margin-bottom:13px;line-height:1.5">Entre com email e senha pra sincronizar automaticamente entre o Mac e o iPhone.</div><button class="bigbtn" id="openAuthBtn" style="box-shadow:none">Entrar / criar conta</button>`;
+  }
+}
+// UI de login (delegação)
+document.getElementById("syncCard").addEventListener("click",e=>{
+  if(e.target.closest("#openAuthBtn")) openAuth();
+  if(e.target.closest("#signOutBtn")){ if(fbAuth){fbAuth.signOut();toast("Você saiu");} }
+});
+function openAuth(){ document.getElementById("authErr").textContent=""; document.getElementById("authModal").classList.add("open"); document.getElementById("authEmail").focus(); }
+function closeAuth(){ document.getElementById("authModal").classList.remove("open"); }
+document.getElementById("authClose").addEventListener("click",closeAuth);
+document.getElementById("authModal").addEventListener("click",e=>{ if(e.target.id==="authModal") closeAuth(); });
+function doAuth(kind){
+  if(!fbAuth) return;
+  const email=document.getElementById("authEmail").value.trim();
+  const pw=document.getElementById("authPass").value;
+  const errEl=document.getElementById("authErr");
+  if(!email||!pw){ errEl.textContent="Preencha email e senha."; return; }
+  errEl.textContent="…";
+  const op=kind==="up"?fbAuth.createUserWithEmailAndPassword(email,pw):fbAuth.signInWithEmailAndPassword(email,pw);
+  op.then(()=>{ closeAuth(); document.getElementById("authPass").value=""; toast(kind==="up"?"Conta criada! Sincronizando…":"Conectado! Sincronizando…"); })
+    .catch(err=>{ errEl.textContent=authErrMsg(err); });
+}
+document.getElementById("authSignInBtn").addEventListener("click",()=>doAuth("in"));
+document.getElementById("authSignUpBtn").addEventListener("click",()=>doAuth("up"));
+document.getElementById("authPass").addEventListener("keydown",e=>{ if(e.key==="Enter")doAuth("in"); });
+
 applyTheme();renderAll();save(); // save() garante que a migração de dados antigos seja persistida
+initFirebase();
 if("serviceWorker" in navigator){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").catch(()=>{});});}
 </script>
 </body>
