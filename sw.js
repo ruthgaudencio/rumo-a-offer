@@ -1,6 +1,6 @@
 /* Service worker — Rumo à Offer
    Cache do app shell para funcionar offline e permitir instalação como app. */
-const CACHE = "rumo-offer-v5";
+const CACHE = "rumo-offer-v10";
 const ASSETS = [
   "./",
   "./index.html",
