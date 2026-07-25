@@ -73,9 +73,12 @@ header{position:sticky;top:0;z-index:30;background:linear-gradient(160deg,var(--
 .hero-card .lbl{font-size:.66rem;text-transform:uppercase;letter-spacing:.09em;opacity:.82;font-weight:600}
 .hero-card .big{font-family:var(--display);font-weight:600;font-size:1.7rem;line-height:1;margin-top:5px}
 .hero-card .sub{font-size:.72rem;opacity:.85;margin-top:3px}
-.phasechip{display:inline-flex;align-items:center;gap:6px;margin-top:12px;background:rgba(255,246,236,.16);
+.phaserow{display:flex;align-items:center;gap:10px 16px;flex-wrap:wrap;margin-top:12px}
+.phasechip{display:inline-flex;align-items:center;gap:6px;background:rgba(255,246,236,.16);flex:none;
   border:1px solid rgba(255,246,236,.22);padding:6px 12px;border-radius:999px;font-size:.74rem;font-weight:600}
 .phasechip .dot{width:8px;height:8px;border-radius:50%;background:#DFC9A0;box-shadow:0 0 0 3px rgba(223,201,160,.3)}
+.affirm{font-family:var(--display);font-style:italic;font-weight:500;font-size:.92rem;line-height:1.35;
+  color:rgba(255,246,236,.92);flex:1;min-width:170px}
 
 main{max-width:760px;margin:0 auto;padding:20px 16px 24px}
 .view{display:none;animation:fade .32s ease}
@@ -136,6 +139,25 @@ main{max-width:760px;margin:0 auto;padding:20px 16px 24px}
 .helpbox b{color:var(--indigo-deep)}
 .helpbox .hh{display:flex;align-items:center;gap:8px;font-weight:700;margin-bottom:6px}
 .helpbox .hh svg{width:17px;height:17px;color:var(--indigo)}
+.daynav{display:flex;align-items:center;gap:12px;margin:4px 0 12px}
+.daynav-c{flex:1;text-align:center;min-width:0}
+.daynav-c .sectiontitle{margin:0}
+.daynav-btn{width:42px;height:42px;border-radius:12px;border:1px solid var(--line-strong);background:var(--surface);font-size:1.5rem;color:var(--ink);display:grid;place-items:center;flex:none;line-height:1}
+.daynav-btn:disabled{opacity:.35}
+.daynav-btn:active:not(:disabled){background:var(--surface-2)}
+.todaychip{display:block;margin:-4px auto 14px;font-size:.78rem;font-weight:600;color:var(--indigo);background:var(--indigo-soft);padding:7px 15px;border-radius:999px}
+.todaychip.hidden{display:none}
+.roteiro .card-h{margin-bottom:8px}
+.rstep{display:flex;align-items:center;gap:12px;padding:9px 2px;border-bottom:1px solid var(--line);cursor:pointer;user-select:none}
+.rstep:last-child{border-bottom:none}
+.rstep .num{width:25px;height:25px;border-radius:50%;background:var(--indigo-soft);color:var(--indigo-deep);font-weight:700;font-size:.8rem;display:grid;place-items:center;flex:none;transition:.15s}
+.rstep .rt{flex:1;font-size:.9rem;font-weight:500;transition:.15s}
+.rstep .rc{width:22px;height:22px;border-radius:7px;border:2px solid var(--line-strong);flex:none;display:grid;place-items:center;transition:.15s}
+.rstep .rc svg{width:13px;height:13px;color:#fff;opacity:0;transition:.15s}
+.rstep.done .rc{background:var(--jade);border-color:var(--jade)}
+.rstep.done .rc svg{opacity:1}
+.rstep.done .num{background:var(--jade);color:#fff}
+.rstep.done .rt{color:var(--faint);text-decoration:line-through}
 
 .statgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:16px}
 .stat{background:var(--surface);border:1px solid var(--line);border-radius:15px;padding:15px 16px;box-shadow:var(--shadow)}
@@ -199,6 +221,27 @@ svg.chart{width:100%;height:auto;display:block;overflow:visible}
 .setrow .sl{font-weight:600;font-size:.9rem} .setrow .sd{font-size:.75rem;color:var(--muted);margin-top:2px}
 .setrow input[type=date]{padding:9px 11px;border:1px solid var(--line-strong);border-radius:10px;background:var(--surface);font-family:var(--mono)}
 .dangerbtn{color:var(--rose);border:1px solid var(--rose);border-radius:10px;padding:9px 14px;font-weight:600;font-size:.82rem;background:transparent}
+/* Edital de estudos */
+.editaltop{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.editaltop .track{flex:1;height:9px;background:var(--line);border-radius:5px;overflow:hidden}
+.editaltop .track span{display:block;height:100%;background:var(--jade);border-radius:5px;transition:width .4s}
+.editaltop .pc{font-family:var(--mono);font-weight:700;font-size:.9rem;color:var(--jade)}
+.edmod{margin-bottom:15px;border:1px solid var(--line);border-radius:13px;overflow:hidden}
+.edmod-h{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:11px 14px;background:var(--surface-2);cursor:pointer}
+.edmod-h .nm{font-weight:700;font-size:.86rem}
+.edmod-h .c{font-family:var(--mono);font-size:.74rem;color:var(--muted);font-weight:600;white-space:nowrap}
+.edtopics{padding:4px 14px 8px}
+.edtopic{display:flex;align-items:center;gap:11px;padding:8px 0;cursor:pointer;border-bottom:1px solid var(--line)}
+.edtopic:last-child{border-bottom:none}
+.edcheck{width:21px;height:21px;border-radius:6px;border:2px solid var(--line-strong);flex:none;display:grid;place-items:center;transition:.15s;background:var(--surface)}
+.edcheck.on{background:var(--jade);border-color:var(--jade)}
+.edcheck svg{width:12px;height:12px;color:#fff;opacity:0;transition:.15s}
+.edcheck.on svg{opacity:1}
+.edtopic .t{font-size:.85rem;line-height:1.35}
+.edtopic.done .t{color:var(--faint);text-decoration:line-through}
+.reportfield label{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600;margin:0 0 6px}
+.reportfield input{width:100%;padding:11px 13px;border:1px solid var(--line-strong);border-radius:11px;background:var(--surface-2);margin-bottom:13px}
+.reportfield input:focus{outline:none;border-color:var(--indigo);box-shadow:0 0 0 3px var(--indigo-soft)}
 nav{position:fixed;bottom:0;left:0;right:0;z-index:40;background:var(--surface);border-top:1px solid var(--line);
   padding:8px 8px calc(env(safe-area-inset-bottom) + 8px);display:flex;justify-content:space-around;box-shadow:0 -4px 20px rgba(56,48,31,.07)}
 .navbtn{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 2px;border-radius:12px;color:var(--faint);font-size:.64rem;font-weight:600;transition:color .15s;flex:1;min-width:0;max-width:110px}
@@ -242,13 +285,21 @@ nav{position:fixed;bottom:0;left:0;right:0;z-index:40;background:var(--surface);
   .navbtn .nbg{padding:0;background:none!important;display:flex}
   .navbtn svg{width:21px;height:21px}
   .navbtn.active{background:var(--indigo-soft)}
-  header{max-width:920px;margin:0 auto;border-radius:0 0 26px 26px}
+  /* topo compacto, encostado na barra lateral */
+  header{max-width:1220px;margin:0;border-radius:0 0 24px 24px;padding:15px 32px 16px}
   header .brand{display:none}
-  .brandrow{justify-content:flex-end}
-  main{max-width:920px;margin:0 auto}
+  .brandrow{position:absolute;top:13px;right:22px;width:auto}
+  .hero{margin-top:2px;gap:14px}
+  .hero-card{padding:10px 18px}
+  .hero-card .lbl{font-size:.63rem}
+  .hero-card .big{font-size:1.45rem;margin-top:3px}
+  .hero-card .sub{font-size:.7rem}
+  .phasechip{margin-top:9px}
+  /* conteúdo usa a largura, sem sobra grande à esquerda */
+  main{max-width:1220px;margin:0;padding:20px 32px 24px}
   .statgrid{grid-template-columns:repeat(4,1fr)}
-  #todayBlocks{display:grid;grid-template-columns:1fr 1fr;gap:0 16px;align-items:start}
-  #reviewList,#insightList{display:grid;grid-template-columns:1fr 1fr;gap:0 16px;align-items:start}
+  #todayBlocks{display:grid;grid-template-columns:1fr 1fr;gap:0 18px;align-items:start}
+  #reviewList,#insightList{display:grid;grid-template-columns:1fr 1fr;gap:0 18px;align-items:start}
 }
 </style>
 </head>
@@ -267,16 +318,30 @@ nav{position:fixed;bottom:0;left:0;right:0;z-index:40;background:var(--surface);
     <div class="hero-card"><div class="lbl">Contagem regressiva</div><div class="big mono" id="countdownDays">—</div><div class="sub" id="countdownSub">dias até o final round</div></div>
     <div class="hero-card"><div class="lbl">Ofensiva</div><div class="big mono" id="streakVal">0</div><div class="sub" id="streakSub">dias seguidos</div></div>
   </div>
-  <div class="phasechip"><span class="dot"></span><span id="phaseLabel">Fase —</span></div>
+  <div class="phaserow">
+    <div class="phasechip"><span class="dot"></span><span id="phaseLabel">Fase —</span></div>
+    <p class="affirm" id="affirm"></p>
+  </div>
 </header>
 
 <main>
   <section class="view active" id="view-hoje">
-    <div class="sectiontitle" id="todayTitle">Hoje</div>
-    <div class="sectionsub" id="todaySub">Seu plano de estudos de hoje</div>
+    <div class="daynav">
+      <button class="daynav-btn" id="dayPrev" aria-label="Dia anterior">‹</button>
+      <div class="daynav-c">
+        <div class="sectiontitle" id="todayTitle">Hoje</div>
+        <div class="sectionsub" id="todaySub" style="margin-bottom:0">Seu plano de estudos de hoje</div>
+      </div>
+      <button class="daynav-btn" id="dayNext" aria-label="Próximo dia">›</button>
+    </div>
+    <button class="todaychip hidden" id="dayToday">Voltar para hoje</button>
     <div class="helpbox" id="helpBox">
       <div class="hh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>Como marcar que estudei</div>
       Em cada área, preencha <b>minutos</b>, <b>questões</b> e <b>acertos</b> (o % aparece sozinho) e toque no <b>quadradinho ✓</b> pra dar a área como feita. No fim, toque em <b>“Marcar dia como concluído”</b> — isso fecha o dia e mantém sua ofensiva. <span style="color:var(--muted)">Toque aqui para ocultar.</span>
+    </div>
+    <div class="card roteiro">
+      <div class="card-h"><h3>Roteiro do case</h3><span class="hint">marque conforme executa</span></div>
+      <div id="roteiroSteps"></div>
     </div>
     <div id="todayBlocks"></div>
     <div class="card"><div class="card-h"><h3>Anotações do dia</h3></div>
@@ -312,20 +377,35 @@ nav{position:fixed;bottom:0;left:0;right:0;z-index:40;background:var(--surface);
   </section>
 
   <section class="view" id="view-insights">
-    <div class="sectiontitle">Insights</div><div class="sectionsub">Seu diário de aprendizados dos cases</div>
+    <div class="sectiontitle">Caderno de cases</div><div class="sectionsub">Seu case book pessoal — os cases que você resolveu e o que aprendeu</div>
     <div id="insightList"></div>
   </section>
 
   <section class="view" id="view-plano">
     <div class="sectiontitle">Plano &amp; Ajustes</div><div class="sectionsub">Personalize o cronograma do seu jeito</div>
-    <div class="card"><div class="card-h"><h3>Data do final round</h3></div>
-      <div class="setrow"><div><div class="sl">Entrevistas</div><div class="sd">Usada na contagem regressiva e nas fases</div></div><input type="date" id="interviewDate"></div></div>
+    <div class="card" id="editalCard">
+      <div class="card-h"><h3>Edital de estudos</h3><span class="hint">o que dominar para o processo</span></div>
+      <div class="editaltop"><div class="track"><span id="editalBar"></span></div><span class="pc" id="editalPct">0%</span></div>
+      <div id="editalBody"></div>
+    </div>
+    <div class="card"><div class="card-h"><h3>Datas</h3></div>
+      <div class="setrow"><div><div class="sl">Início dos estudos (Dia 1)</div><div class="sd">Primeiro dia do seu curso/preparação</div></div><input type="date" id="startDate"></div>
+      <div class="setrow"><div><div class="sl">Final round</div><div class="sd">Contagem regressiva e fases</div></div><input type="date" id="interviewDate"></div></div>
     <div class="card"><div class="card-h"><h3>Áreas de estudo</h3><span class="hint">toque para ativar/desativar</span></div><div id="areaPills"></div></div>
     <div class="card"><div class="card-h"><h3>Modelo de semana</h3><span class="hint">carregue um preset</span></div>
       <div class="presetrow" id="presetRow"></div>
       <div class="sd" style="color:var(--muted);font-size:.78rem;margin-top:4px">Presets já calibrados para ~30 min nos dias úteis e ~1h30 no fim de semana. A proporção muda conforme a fase. Depois é só ajustar os minutos abaixo.</div></div>
     <div class="card"><div class="card-h"><h3>Minutos por área (por dia)</h3></div><div id="planEditor"></div></div>
     <div class="card" id="syncCard"><div class="card-h"><h3>Sincronizar entre aparelhos</h3></div><div id="syncBody"></div></div>
+    <div class="card">
+      <div class="card-h"><h3>Relatório de estudos</h3></div>
+      <div class="sd" style="color:var(--muted);font-size:.82rem;margin-bottom:14px;line-height:1.5">Gera um relatório completo (métricas, progresso no edital, insights e pontos revisados) pronto pra salvar como PDF e anexar à sua cover letter. No relatório que abrir, use <b>Imprimir → Salvar como PDF</b>.</div>
+      <div class="reportfield">
+        <label>Seu nome (aparece no relatório)</label>
+        <input type="text" id="reportName" placeholder="Ex: Ruth Gaudencio" maxlength="60">
+      </div>
+      <button class="bigbtn" id="genReportBtn" style="box-shadow:none">Gerar relatório (PDF)</button>
+    </div>
     <div class="card"><div class="card-h"><h3>Backup dos dados</h3></div>
       <div class="sd" style="color:var(--muted);font-size:.8rem;margin-bottom:12px">Seus dados ficam salvos neste dispositivo. Para usar no celular e no computador com os mesmos dados, exporte aqui e importe no outro aparelho.</div>
       <button class="ghostbtn" id="exportBtn" style="margin-bottom:10px">Exportar backup (.json)</button>
@@ -342,7 +422,7 @@ nav{position:fixed;bottom:0;left:0;right:0;z-index:40;background:var(--surface);
   <button class="navbtn active" data-view="hoje"><span class="nbg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 22V12h6v10"/></svg></span>Hoje</button>
   <button class="navbtn" data-view="progresso"><span class="nbg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg></span>Progresso</button>
   <button class="navbtn" data-view="revisoes"><span class="nbg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4a7 7 0 100 14 7 7 0 000-14z"/><path d="M11 8v3l2 1"/><path d="M20 20l-3-3"/></svg></span>Revisar</button>
-  <button class="navbtn" data-view="insights"><span class="nbg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4M12 3a6 6 0 00-4 10.5c.5.5 1 1.2 1 2.5h6c0-1.3.5-2 1-2.5A6 6 0 0012 3z"/></svg></span>Insights</button>
+  <button class="navbtn" data-view="insights"><span class="nbg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 012-2h9a2 2 0 012 2v16l-6-3-6 3z"/><path d="M8 7h6M8 11h6"/></svg></span>Caderno</button>
   <button class="navbtn" data-view="plano"><span class="nbg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/><circle cx="18" cy="18" r="2.5"/></svg></span>Plano</button>
 </nav>
 
@@ -402,6 +482,67 @@ const CASE_TYPES=[
   {key:"growth",name:"Crescimento"},
 ];
 const CT_MAP=Object.fromEntries(CASE_TYPES.map(c=>[c.key,c]));
+
+/* Frases de afirmação (giram por dia) */
+const AFFIRMATIONS=[
+  "Penso de forma estruturada e comunico com confiança.",
+  "Quebro problemas complexos em partes claras e resolvo com calma.",
+  "Escuto com atenção, penso com lógica e respondo com clareza.",
+  "Trago estrutura para a ambiguidade e confiança para a incerteza.",
+  "Raciocínio claro, comunicação direta, presença tranquila.",
+  "Organizo o caos em hipóteses e as testo com rigor.",
+  "Sob pressão, eu respiro, estruturo e sigo em frente.",
+  "Faço as perguntas certas antes de buscar a resposta.",
+  "Conduzo a conversa com segurança e penso alto com clareza.",
+  "Transformo dados em recomendações e ideias em ação.",
+  "Confio no meu raciocínio e no trabalho que me trouxe até aqui.",
+  "Aprendo rápido, ajusto sem ego e melhoro a cada case.",
+  "Clareza no pensamento, calma na entrega.",
+  "Cada problema tem uma estrutura — e eu sei encontrá-la.",
+];
+/* Roteiro do case — passos fixos que você marca ao praticar (zera a cada dia) */
+const ROTEIRO=[
+  "Entender o problema",
+  "Pedir um tempo para estruturar",
+  "Apresentar o outline",
+  "Conduzir a análise",
+  "Conferir antes de recomendar",
+];
+
+/* Edital de estudos — na lógica do Case in Point (Ivy Case System) */
+const SYLLABUS=[
+  {key:"estrut",name:"Estruturação de casos (Ivy Case System)",topics:[
+    "Resumir e confirmar o objetivo do case","Fazer boas perguntas de esclarecimento",
+    "Estruturar de forma MECE","Montar issue trees / árvores de decisão",
+    "Levantar e testar hipóteses","Comunicar a recomendação top-down (resposta primeiro)",
+    "Fechar com riscos e próximos passos"]},
+  {key:"tipos",name:"Tipos de caso",topics:[
+    "Lucratividade (Lucro = Receita − Custo)","Entrada em novo mercado",
+    "Fusões & Aquisições (M&A)","Crescimento / aumento de receita",
+    "Market sizing / estimativas","Precificação (pricing)",
+    "Redução de custos / operações","Estratégia competitiva"]},
+  {key:"frame",name:"Frameworks essenciais",topics:[
+    "Profitability framework","3 Cs (Company, Customers, Competitors)",
+    "4 Ps (Product, Price, Place, Promotion)","Porter — 5 Forças",
+    "Cadeia de valor (value chain)","Matriz de priorização custo × impacto"]},
+  {key:"math",name:"Math de caso",topics:[
+    "Cálculo de market share","Margens (bruta e líquida)",
+    "Break-even (ponto de equilíbrio)","ROI e payback",
+    "NPV básico / valor do dinheiro no tempo","Análise de sensibilidade"]},
+  {key:"gmat",name:"GMAT Quant",topics:[
+    "Aritmética (frações, razões, porcentagem)","Álgebra (equações e sistemas)",
+    "Problem Solving","Data Sufficiency","Geometria essencial",
+    "Estatística (média, mediana, desvio)"]},
+  {key:"mental",name:"Mental math",topics:[
+    "Multiplicação e divisão rápidas","Porcentagens de cabeça",
+    "Estimativa e arredondamento","Potências de 10 e notação",
+    "Conversão frações ↔ porcentagem"]},
+  {key:"fit",name:"Fit / PEI",topics:[
+    "Histórias de liderança (formato STAR)","Histórias de impacto e realização",
+    "Situação de conflito / trabalho em equipe","“Por que consultoria” e “por que BCG”",
+    "Pontos fortes e a desenvolver","Perguntas inteligentes para o entrevistador"]},
+];
+const SYLLABUS_TOTAL=SYLLABUS.reduce((s,m)=>s+m.topics.length,0);
 /* Presets leves — ~30 min dias úteis, ~1h30 fim de semana. Chave = dia JS (0=Dom..6=Sáb) */
 const PRESETS={
   fundamentos:{label:"Fundamentos",desc:"Base de GMAT + math. >8 semanas",plan:{
@@ -416,15 +557,16 @@ const PRESETS={
 };
 
 let state=load();
+let viewDate=todayKey(); // dia sendo visualizado/editado na aba Hoje (permite registro retroativo)
 function presetForDate(dateStr){const days=daysBetween(new Date(),parseKey(dateStr));const w=days/7;
   if(days>=0&&w>8)return"fundamentos";if(days>=0&&w>=4)return"transicao";return"reta";}
 function defaultState(){const interviewDate="2026-10-22";const preset=presetForDate(interviewDate);
-  return{version:3,theme:"light",hideHelp:false,config:{interviewDate,
+  return{version:3,theme:"light",hideHelp:false,config:{interviewDate,startDate:"2026-07-20",
     areasOn:{quant:true,math:true,cases:true,fit:true},
-    activePreset:preset,plan:JSON.parse(JSON.stringify(PRESETS[preset].plan))},logs:{},resolved:{}};}
+    activePreset:preset,plan:JSON.parse(JSON.stringify(PRESETS[preset].plan))},logs:{},resolved:{},edital:{},reportName:""};}
 function load(){try{const raw=localStorage.getItem(STORAGE_KEY);if(!raw)return defaultState();
   const s=JSON.parse(raw);const d=defaultState();
-  const merged={...d,...s,config:{...d.config,...(s.config||{})},logs:s.logs||{},resolved:s.resolved||{}};
+  const merged={...d,...s,config:{...d.config,...(s.config||{})},logs:s.logs||{},resolved:s.resolved||{},edital:s.edital||{},reportName:s.reportName||""};
   if((s.version||1)<2){ // migra da versão antiga (tinha GMAT Verbal e Market sizing como áreas)
     merged.version=2;
     merged.config.areasOn={quant:true,math:true,cases:true,fit:true};
@@ -449,7 +591,7 @@ const WD_FULL=["Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sábado"]
 const MON=["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"];
 const MON_FULL=["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
 
-function getLog(key){if(!state.logs[key])state.logs[key]={areas:{},note:"",completed:false};return state.logs[key];}
+function getLog(key){if(!state.logs[key])state.logs[key]={areas:{},note:"",completed:false};if(!state.logs[key].roteiro)state.logs[key].roteiro={};return state.logs[key];}
 function getArea(key,area){const l=getLog(key);if(!l.areas[area])l.areas[area]={min:0,q:0,c:0,done:false,rev:"",insight:"",caseType:""};
   const a=l.areas[area];if(a.insight===undefined)a.insight="";if(a.caseType===undefined)a.caseType="";return a;}
 function phaseInfo(){const days=daysBetween(new Date(),parseKey(state.config.interviewDate));const w=days/7;
@@ -462,7 +604,28 @@ function studiedOn(key){const l=state.logs[key];if(!l)return false;if(l.complete
 function computeStreak(){let n=0;let cur=new Date();if(!studiedOn(todayKey(cur)))cur=addDays(cur,-1);
   while(studiedOn(todayKey(cur))){n++;cur=addDays(cur,-1);}return n;}
 
-function renderAll(){renderHeader();renderToday();renderProgress();renderReviews();renderInsights();renderPlanEditor();renderSync();}
+function renderAll(){renderHeader();renderToday();renderProgress();renderReviews();renderInsights();renderPlanEditor();renderEdital();renderSync();}
+function renderAffirm(){
+  const el=document.getElementById("affirm");if(!el)return;
+  const now=new Date();const start=new Date(now.getFullYear(),0,0);
+  const day=Math.floor((now-start)/86400000);
+  el.textContent="“"+AFFIRMATIONS[day%AFFIRMATIONS.length]+"”";
+}
+function editalDone(mk,i){return !!state.edital[mk+"|"+i];}
+function editalCount(){let n=0;SYLLABUS.forEach(m=>m.topics.forEach((t,i)=>{if(editalDone(m.key,i))n++;}));return n;}
+function renderEdital(){
+  const body=document.getElementById("editalBody");if(!body)return;
+  const done=editalCount(),pct=Math.round(done/SYLLABUS_TOTAL*100);
+  document.getElementById("editalBar").style.width=pct+"%";
+  document.getElementById("editalPct").textContent=pct+"% ("+done+"/"+SYLLABUS_TOTAL+")";
+  body.innerHTML=SYLLABUS.map(m=>{
+    const md=m.topics.filter((t,i)=>editalDone(m.key,i)).length;
+    return `<div class="edmod"><div class="edmod-h"><span class="nm">${m.name}</span><span class="c">${md}/${m.topics.length}</span></div>
+      <div class="edtopics">${m.topics.map((t,i)=>`<div class="edtopic ${editalDone(m.key,i)?"done":""}" data-ed="${m.key}|${i}">
+        <span class="edcheck ${editalDone(m.key,i)?"on":""}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
+        <span class="t">${t}</span></div>`).join("")}</div></div>`;
+  }).join("");
+}
 function renderHeader(){
   const days=daysBetween(new Date(),parseKey(state.config.interviewDate));
   const cd=document.getElementById("countdownDays"),cs=document.getElementById("countdownSub");
@@ -471,13 +634,17 @@ function renderHeader(){
   else{cd.textContent="🎯";cs.textContent="data já passou";}
   const s=computeStreak();document.getElementById("streakVal").textContent=s;
   document.getElementById("streakSub").textContent=s===1?"dia seguido":"dias seguidos";
-  document.getElementById("phaseLabel").textContent=phaseInfo().label;}
+  document.getElementById("phaseLabel").textContent=phaseInfo().label;renderAffirm();}
 
 function fmtMin(m){if(m>=60){const h=Math.floor(m/60),r=m%60;return r?h+"h"+r:h+"h";}return m+"min";}
 function renderToday(){
-  const key=todayKey(),now=new Date();
-  document.getElementById("todayTitle").textContent=WD_FULL[now.getDay()];
-  document.getElementById("todaySub").textContent=now.getDate()+" de "+MON_FULL[now.getMonth()]+" · seu plano de hoje";
+  const key=viewDate,now=parseKey(viewDate);
+  const isToday=(viewDate===todayKey());
+  document.getElementById("todayTitle").textContent=isToday?"Hoje":WD_FULL[now.getDay()];
+  const dayN=daysBetween(parseKey(state.config.startDate||"2026-07-20"),now)+1;
+  document.getElementById("todaySub").textContent=WD_FULL[now.getDay()]+", "+now.getDate()+" de "+MON_FULL[now.getMonth()]+(dayN>=1?" · Dia "+dayN:"");
+  document.getElementById("dayNext").disabled=isToday;
+  document.getElementById("dayToday").classList.toggle("hidden",isToday);
   document.getElementById("helpBox").style.display=state.hideHelp?"none":"block";
   const dayPlan=state.config.plan[now.getDay()]||{};
   const wrap=document.getElementById("todayBlocks");wrap.innerHTML="";
@@ -506,15 +673,21 @@ function renderToday(){
         <button class="revtoggle insighttoggle" data-instoggle="${k}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4M12 3a6 6 0 00-4 10.5c.5.5 1 1.2 1 2.5h6c0-1.3.5-2 1-2.5A6 6 0 0012 3z"/></svg>Anotar insight</button>
       </div>
       <div class="revbox ${data.rev?"open":""}" data-revbox="${k}"><textarea data-f="rev" data-a="${k}" placeholder="Ex: revisar data sufficiency de geometria; travei na parte de custos fixos...">${data.rev||""}</textarea></div>
-      <div class="insbox ${data.insight?"open":""}" data-insbox="${k}"><textarea data-f="insight" data-a="${k}" placeholder="Insights e aprendizados: o que funcionou na estruturação, sanity checks, a recomendação final, o que faria diferente...">${data.insight||""}</textarea></div>`;
+      <div class="insbox ${data.insight?"open":""}" data-insbox="${k}"><textarea data-f="insight" data-a="${k}" placeholder="${k==="cases"?"Entrada do case book: o problema, como estruturei, a recomendação e o principal aprendizado.":"Insight/aprendizado do dia."}">${data.insight||""}</textarea></div>`;
     wrap.appendChild(row);updateAcc(k);
   });
   document.getElementById("dayNote").value=getLog(key).note||"";
+  renderRoteiro();
   const btn=document.getElementById("completeDayBtn"),lbl=document.getElementById("completeDayLabel");
   if(getLog(key).completed){btn.classList.add("done");lbl.textContent="Dia concluído ✓ (toque para desfazer)";}
   else{btn.classList.remove("done");lbl.textContent="Marcar dia como concluído";}
 }
-function updateAcc(k){const key=todayKey(),d=getArea(key,k);
+function renderRoteiro(){
+  const el=document.getElementById("roteiroSteps");if(!el)return;
+  const r=getLog(viewDate).roteiro||{};
+  el.innerHTML=ROTEIRO.map((s,i)=>`<div class="rstep ${r[i]?"done":""}" data-rstep="${i}"><span class="num">${i+1}</span><span class="rt">${s}</span><span class="rc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span></div>`).join("");
+}
+function updateAcc(k){const key=viewDate,d=getArea(key,k);
   const bar=document.querySelector(`[data-accbar="${k}"]`),pct=document.querySelector(`[data-accpct="${k}"]`);
   if(!bar||!pct)return;
   if(d.q>0){const p=Math.round(Math.min(d.c,d.q)/d.q*100);bar.style.width=p+"%";pct.textContent=p+"%";
@@ -603,6 +776,8 @@ function renderInsights(){
 }
 function renderPlanEditor(){
   document.getElementById("interviewDate").value=state.config.interviewDate;
+  const sd=document.getElementById("startDate");if(sd)sd.value=state.config.startDate||"2026-07-20";
+  const rn=document.getElementById("reportName");if(rn)rn.value=state.reportName||"";
   document.getElementById("areaPills").innerHTML=AREAS.map(a=>`<button class="pill ${state.config.areasOn[a.key]?"on":""}" data-area="${a.key}"><span class="sw" style="background:${state.config.areasOn[a.key]?"#FAF6EC":a.color}"></span>${a.name}</button>`).join("");
   document.getElementById("presetRow").innerHTML=Object.entries(PRESETS).map(([k,p])=>`<button class="preset ${state.config.activePreset===k?"active":""}" data-preset="${k}"><div class="pn">${p.label}</div><div class="pd">${p.desc}</div></button>`).join("");
   const ed=document.getElementById("planEditor"),order=[1,2,3,4,5,6,0];
@@ -624,22 +799,28 @@ function applyTheme(){document.documentElement.setAttribute("data-theme",state.t
   document.getElementById("themeIcon").innerHTML=state.theme==="dark"?'<path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/>':'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>';}
 document.getElementById("helpBox").addEventListener("click",()=>{state.hideHelp=true;save();document.getElementById("helpBox").style.display="none";});
 document.getElementById("todayBlocks").addEventListener("input",e=>{const t=e.target;if(t.dataset.f&&t.dataset.a){
-  const key=todayKey(),d=getArea(key,t.dataset.a);
+  const key=viewDate,d=getArea(key,t.dataset.a);
   if(t.dataset.f==="rev")d.rev=t.value;
   else if(t.dataset.f==="insight")d.insight=t.value;
   else{const cleaned=t.value.replace(/[^0-9]/g,"");if(cleaned!==t.value)t.value=cleaned;let v=parseInt(cleaned,10);if(isNaN(v)||v<0)v=0;d[t.dataset.f]=v;if(t.dataset.f==="q"||t.dataset.f==="c")updateAcc(t.dataset.a);}
   save();debounceHeader();}});
 document.getElementById("todayBlocks").addEventListener("click",e=>{
-  const chk=e.target.closest("[data-check]");if(chk){const key=todayKey(),d=getArea(key,chk.dataset.check);d.done=!d.done;chk.classList.toggle("on",d.done);chk.closest(".arearow").classList.toggle("done",d.done);save();renderHeader();return;}
-  const ct=e.target.closest("[data-ct]");if(ct){const key=todayKey(),d=getArea(key,ct.dataset.a);
+  const chk=e.target.closest("[data-check]");if(chk){const key=viewDate,d=getArea(key,chk.dataset.check);d.done=!d.done;chk.classList.toggle("on",d.done);chk.closest(".arearow").classList.toggle("done",d.done);save();renderHeader();return;}
+  const ct=e.target.closest("[data-ct]");if(ct){const key=viewDate,d=getArea(key,ct.dataset.a);
     d.caseType=d.caseType===ct.dataset.ct?"":ct.dataset.ct;
     ct.closest(".casetypes").querySelectorAll(".ctchip").forEach(x=>x.classList.toggle("on",x.dataset.ct===d.caseType));
     save();return;}
   const rt=e.target.closest("[data-revtoggle]");if(rt){const box=document.querySelector(`[data-revbox="${rt.dataset.revtoggle}"]`);box.classList.toggle("open");if(box.classList.contains("open"))box.querySelector("textarea").focus();return;}
   const it=e.target.closest("[data-instoggle]");if(it){const box=document.querySelector(`[data-insbox="${it.dataset.instoggle}"]`);box.classList.toggle("open");if(box.classList.contains("open"))box.querySelector("textarea").focus();return;}});
-document.getElementById("dayNote").addEventListener("input",e=>{getLog(todayKey()).note=e.target.value;save();});
-document.getElementById("completeDayBtn").addEventListener("click",()=>{const l=getLog(todayKey());l.completed=!l.completed;save();renderToday();renderHeader();if(l.completed)toast("Dia concluído! 🔥 ofensiva em "+computeStreak());});
+document.getElementById("dayNote").addEventListener("input",e=>{getLog(viewDate).note=e.target.value;save();});
+document.getElementById("roteiroSteps").addEventListener("click",e=>{const s=e.target.closest("[data-rstep]");if(!s)return;
+  const i=s.dataset.rstep,r=getLog(viewDate).roteiro;if(r[i])delete r[i];else r[i]=true;save();renderRoteiro();});
+document.getElementById("dayPrev").addEventListener("click",()=>{viewDate=todayKey(addDays(parseKey(viewDate),-1));renderToday();});
+document.getElementById("dayNext").addEventListener("click",()=>{const nd=todayKey(addDays(parseKey(viewDate),1));if(parseKey(nd)>stripTime(new Date()))return;viewDate=nd;renderToday();});
+document.getElementById("dayToday").addEventListener("click",()=>{viewDate=todayKey();renderToday();});
+document.getElementById("completeDayBtn").addEventListener("click",()=>{const l=getLog(viewDate);l.completed=!l.completed;save();renderToday();renderHeader();if(l.completed)toast("Dia concluído! 🔥 ofensiva em "+computeStreak());});
 document.getElementById("interviewDate").addEventListener("change",e=>{state.config.interviewDate=e.target.value;save();renderHeader();});
+document.getElementById("startDate").addEventListener("change",e=>{state.config.startDate=e.target.value;save();renderToday();});
 document.getElementById("areaPills").addEventListener("click",e=>{const p=e.target.closest("[data-area]");if(!p)return;
   const k=p.dataset.area,on=AREAS.filter(a=>state.config.areasOn[a.key]).length;
   if(state.config.areasOn[k]&&on<=1){toast("Deixe ao menos uma área ativa");return;}
@@ -662,6 +843,200 @@ document.getElementById("importFile").addEventListener("change",e=>{const f=e.ta
   r.onload=()=>{try{const s=JSON.parse(r.result);if(!s.config||!s.logs)throw 0;state={...defaultState(),...s,config:{...defaultState().config,...s.config}};save();applyTheme();renderAll();toast("Backup importado ✓");}catch(err){toast("Arquivo inválido 😕");}};
   r.readAsText(f);e.target.value="";});
 document.getElementById("resetBtn").addEventListener("click",()=>{if(confirm("Apagar TODOS os dados e configurações? Isso não pode ser desfeito.")){state=defaultState();save();applyTheme();renderAll();toast("Tudo apagado");}});
+// Edital de estudos
+document.getElementById("editalBody").addEventListener("click",e=>{const row=e.target.closest("[data-ed]");if(!row)return;
+  const k=row.dataset.ed;if(state.edital[k])delete state.edital[k];else state.edital[k]=true;save();renderEdital();});
+document.getElementById("reportName").addEventListener("input",e=>{state.reportName=e.target.value;save();});
+document.getElementById("genReportBtn").addEventListener("click",generateReport);
+function buildRadar(axes,values,maxVal,color,scaleUnit){
+  const W=440,H=360,cx=220,cy=180,R=108,n=axes.length;
+  const ang=i=>(-Math.PI/2)+(i/n)*2*Math.PI;
+  const P=(i,r)=>[cx+Math.cos(ang(i))*r,cy+Math.sin(ang(i))*r];
+  let rings="",scale="";[.25,.5,.75,1].forEach(f=>{let d="";for(let i=0;i<n;i++){const[x,y]=P(i,R*f);d+=(i?"L":"M")+x.toFixed(1)+" "+y.toFixed(1);}rings+=`<path d="${d}Z" fill="none" stroke="#E6DAC2" stroke-width="1"/>`;
+    if(scaleUnit){scale+=`<text x="${cx+4}" y="${(cy-R*f+3).toFixed(1)}" font-size="9.5" fill="#b5a98f">${Math.round(maxVal*f)}${scaleUnit}</text>`;}});
+  let spokes="",labels="";for(let i=0;i<n;i++){const[x,y]=P(i,R);spokes+=`<line x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" stroke="#E6DAC2"/>`;const c=Math.cos(ang(i));const[lx,ly]=P(i,R+16);const anc=Math.abs(c)<0.3?"middle":(c>0?"start":"end");labels+=`<text x="${lx.toFixed(1)}" y="${(ly+4).toFixed(1)}" text-anchor="${anc}" font-size="12.5" fill="#5b5344" font-weight="600">${axes[i]}</text>`;}
+  let dp="",dots="";values.forEach((v,i)=>{const r=R*Math.max(0,Math.min(1,v/maxVal));const[x,y]=P(i,r);dp+=(i?"L":"M")+x.toFixed(1)+" "+y.toFixed(1);dots+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.5" fill="${color}"/>`;});
+  return `<svg viewBox="0 0 ${W} ${H}" style="width:100%;max-width:400px;height:auto;display:block;margin:6px auto 0">${rings}${spokes}<path d="${dp}Z" fill="${color}26" stroke="${color}" stroke-width="2" stroke-linejoin="round"/>${dots}${scale}${labels}</svg>`;
+}
+function generateReport(){
+  const entries=allEntries();
+  let totQ=0,totC=0,totMin=0,daysStudied=0;
+  const perArea={};AREAS.forEach(a=>perArea[a.key]={min:0,q:0,c:0});
+  const insights=[],reviews=[];
+  entries.forEach(([key,l])=>{let act=false;
+    Object.entries(l.areas||{}).forEach(([ak,d])=>{
+      totQ+=d.q||0;totC+=d.c||0;totMin+=d.min||0;
+      if(perArea[ak]){perArea[ak].min+=d.min||0;perArea[ak].q+=d.q||0;perArea[ak].c+=d.c||0;}
+      if((d.min||0)>0||d.done)act=true;
+      if(d.insight&&d.insight.trim())insights.push({key,ak,ct:d.caseType,txt:d.insight.trim()});
+      if(d.rev&&d.rev.trim())reviews.push({key,ak,txt:d.rev.trim(),resolved:!!state.resolved[key+"|"+ak]});
+    });
+    if(l.completed||act)daysStudied++;});
+  const firstKey=entries.length?entries[0][0]:todayKey();
+  const periodDays=Math.max(1,daysBetween(parseKey(firstKey),new Date())+1);
+  const consistency=Math.round(daysStudied/periodDays*100);
+  const accOverall=totQ>0?Math.round(totC/totQ*100):0;
+  const hoursStr=(totMin/60).toFixed(1).replace(/\.0$/,"");
+  let maxStreak=0,cur=0;
+  for(let i=0;i<periodDays;i++){if(studiedOn(todayKey(addDays(parseKey(firstKey),i)))){cur++;if(cur>maxStreak)maxStreak=cur;}else cur=0;}
+  const editDone=editalCount(),editPct=Math.round(editDone/SYLLABUS_TOTAL*100);
+  const esc=escapeHtml;
+  const fmtDate=k=>{const d=parseKey(k);return d.getDate()+" "+MON[d.getMonth()]+" "+d.getFullYear();};
+  const daysToIv=daysBetween(new Date(),parseKey(state.config.interviewDate));
+  const name=(state.reportName||"").trim();
+  // Gráfico de linha: acerto ao longo do tempo
+  const accSeries=[];
+  entries.forEach(([key,l])=>{let q=0,c=0;Object.values(l.areas||{}).forEach(d=>{q+=d.q||0;c+=d.c||0;});if(q>0)accSeries.push({k:key,acc:Math.round(c/q*100)});});
+  const accData=accSeries.slice(-20);
+  let svgLine;
+  if(accData.length<2){svgLine='<p class="empty">Registre questões em pelo menos 2 dias para ver a evolução.</p>';}
+  else{const W=760,H=230,pl=34,pr=14,pt=16,pb=30,iw=W-pl-pr,ih=H-pt-pb;
+    const xs=i=>pl+(i/(accData.length-1))*iw,ys=v=>pt+ih-(v/100)*ih;
+    let grid="";[0,25,50,75,100].forEach(v=>{const y=ys(v);grid+=`<line x1="${pl}" y1="${y}" x2="${W-pr}" y2="${y}" stroke="#E0D4BC"/><text x="${pl-8}" y="${y+4}" text-anchor="end" font-size="11" fill="#a99e86">${v}</text>`;});
+    let path="";accData.forEach((d,i)=>{path+=(i?"L":"M")+xs(i).toFixed(1)+" "+ys(d.acc).toFixed(1);});
+    const areaP=path+" L "+xs(accData.length-1).toFixed(1)+" "+ys(0)+" L "+xs(0)+" "+ys(0)+" Z";
+    let dots="",labels="";const step=Math.ceil(accData.length/8);
+    accData.forEach((d,i)=>{dots+=`<circle cx="${xs(i).toFixed(1)}" cy="${ys(d.acc).toFixed(1)}" r="3.5" fill="#fff" stroke="#A0522C" stroke-width="2"/>`;
+      if(i%step===0||i===accData.length-1){const dt=parseKey(d.k);labels+=`<text x="${xs(i).toFixed(1)}" y="${H-9}" text-anchor="middle" font-size="10" fill="#a99e86">${dt.getDate()}/${dt.getMonth()+1}</text>`;}});
+    svgLine=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto"><defs><linearGradient id="ln" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A0522C" stop-opacity=".18"/><stop offset="1" stop-color="#A0522C" stop-opacity="0"/></linearGradient></defs>${grid}<path d="${areaP}" fill="url(#ln)"/><path d="${path}" fill="none" stroke="#A0522C" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>${dots}${labels}</svg>`;}
+  // Barras: tempo por área
+  const areasWithMin=AREAS.filter(a=>perArea[a.key].min>0);
+  const maxMin=Math.max(1,...areasWithMin.map(a=>perArea[a.key].min));
+  const timeBars=areasWithMin.length?areasWithMin.map(a=>`<div class="hbar"><span class="nm">${a.name}</span><span class="track"><span style="width:${(perArea[a.key].min/maxMin*100).toFixed(1)}%;background:${a.color}"></span></span><span class="val">${fmtMin(perArea[a.key].min)}</span></div>`).join(""):'<p class="empty">Sem tempo registrado.</p>';
+  // Barras: acerto por área
+  const areasWithQ=AREAS.filter(a=>perArea[a.key].q>0);
+  const accBars=areasWithQ.length?areasWithQ.map(a=>{const p=perArea[a.key];const acc=Math.round(p.c/p.q*100);const col=acc>=75?"#6E8B4E":acc>=50?"#C9A24A":"#B0532E";return `<div class="hbar"><span class="nm">${a.name}</span><span class="track"><span style="width:${acc}%;background:${col}"></span></span><span class="val">${acc}% · ${p.q}q</span></div>`;}).join(""):'<p class="empty">Sem questões registradas.</p>';
+  // Edital por módulo (barra + tópicos dominados)
+  const editModules=SYLLABUS.map(m=>{const md=m.topics.filter((t,i)=>editalDone(m.key,i)).length;const total=m.topics.length;const pct=Math.round(md/total*100);const done=m.topics.map((t,i)=>editalDone(m.key,i)?esc(t):null).filter(Boolean);
+    return `<div class="edrow"><div class="edrow-h"><span>${m.name}</span><span class="c">${md}/${total}</span></div><div class="edbar"><span style="width:${pct}%"></span></div>${done.length?`<div class="sub2">${done.join(" · ")}</div>`:""}</div>`;}).join("");
+  const insHtml=insights.length?insights.map(it=>{const a=AREA_MAP[it.ak];const ct=it.ct&&CT_MAP[it.ct];
+    return `<div class="note"><div class="note-h"><b>${a?a.name:""}</b>${ct?" · "+ct.name:""}<span class="d">${fmtDate(it.key)}</span></div><p>${esc(it.txt)}</p></div>`;}).join(""):`<p class="empty">Nenhum insight registrado ainda.</p>`;
+  const revHtml=reviews.length?reviews.map(it=>{const a=AREA_MAP[it.ak];
+    return `<div class="note"><div class="note-h"><b>${a?a.name:""}</b>${it.resolved?' · <span class="ok">revisado ✓</span>':""}<span class="d">${fmtDate(it.key)}</span></div><p>${esc(it.txt)}</p></div>`;}).join(""):`<p class="empty">Nenhum ponto de revisão registrado.</p>`;
+  // Resumo executivo (top-down) + evolução de acerto
+  const accFirst=accSeries.length?Math.round(accSeries.slice(0,3).reduce((s,x)=>s+x.acc,0)/Math.min(3,accSeries.length)):0;
+  const accLast=accSeries.length?Math.round(accSeries.slice(-3).reduce((s,x)=>s+x.acc,0)/Math.min(3,accSeries.length)):0;
+  const accDelta=accLast-accFirst;
+  let execSummary;
+  if(accSeries.length>=4&&accDelta>0){execSummary=`Em <b>${periodDays} dias</b> de preparação estruturada para consultoria, mantive <b>${consistency}% de consistência</b>, resolvi <b>${totQ} questões</b> e evoluí de <b>${accFirst}%</b> para <b>${accLast}% de acerto</b> (+${accDelta} p.p.).`;}
+  else{execSummary=`Em <b>${periodDays} dias</b> de preparação estruturada para consultoria, estudei <b>${daysStudied} dias</b> (${consistency}% de consistência), resolvi <b>${totQ} questões</b> e mantive <b>${accOverall}% de acerto médio</b>.`;}
+  // Cobertura por tipo de case
+  const ctCount={};CASE_TYPES.forEach(c=>ctCount[c.key]=0);
+  entries.forEach(([key,l])=>{const cs=l.areas&&l.areas.cases;if(cs&&cs.caseType&&ctCount[cs.caseType]!==undefined)ctCount[cs.caseType]++;});
+  const ctAny=CASE_TYPES.some(c=>ctCount[c.key]>0);
+  const ctMax=Math.max(1,...CASE_TYPES.map(c=>ctCount[c.key]));
+  const caseTypeBars=ctAny?CASE_TYPES.map(c=>`<div class="hbar"><span class="nm">${c.name}</span><span class="track"><span style="width:${(ctCount[c.key]/ctMax*100).toFixed(1)}%;background:#A0522C"></span></span><span class="val">${ctCount[c.key]} ${ctCount[c.key]===1?"dia":"dias"}</span></div>`).join(""):"";
+  // Radares (perfil): acerto por área e cobertura por tipo de case
+  const areaShort={quant:"Quant",math:"Mental",cases:"Cases",fit:"Fit"};
+  const accIsRadar=areasWithQ.length>=3;
+  const accRadar=accIsRadar?buildRadar(areasWithQ.map(a=>areaShort[a.key]||a.name),areasWithQ.map(a=>Math.round(perArea[a.key].c/perArea[a.key].q*100)),100,"#6E8B4E","%"):accBars;
+  const ctShort={prof:"Lucratividade",entry:"Entrada",ma:"M&A",growth:"Crescimento"};
+  const ctRadar=ctAny?buildRadar(CASE_TYPES.map(c=>ctShort[c.key]||c.name),CASE_TYPES.map(c=>ctCount[c.key]),ctMax,"#A0522C"):"";
+  // Radares lado a lado quando ambos existem
+  let radarSection;
+  if(accIsRadar&&ctRadar){
+    radarSection=`<h2>Perfil por área e por tipo de case</h2><div class="radarrow"><div class="radarcell"><h3>Acerto por área</h3>${accRadar}<p class="cap">Escala 0–100% de acerto. Quanto mais para fora, maior o acerto na área.</p></div><div class="radarcell"><h3>Cobertura por tipo de case</h3>${ctRadar}<p class="cap">Escala: nº de dias por tipo (até ${ctMax}). Mostra sua amplitude nos 4 tipos de case.</p></div></div>`;
+  } else {
+    radarSection=`<h2>Acerto por área</h2><div class="chart">${accRadar}</div>${ctRadar?`<h2>Cobertura por tipo de case</h2><div class="chart">${ctRadar}</div>`:""}`;
+  }
+  // Mapa de consistência (10 semanas)
+  const HW=10;const now2=new Date();const dowH=(now2.getDay()+6)%7;const thisMonH=addDays(now2,-dowH);const startH=addDays(thisMonH,-7*(HW-1));
+  let maxM=1;const heatArr=[];
+  for(let i=0;i<HW*7;i++){const dt=addDays(startH,i);const k=todayKey(dt);const l=state.logs[k];let m=0;if(l)Object.values(l.areas||{}).forEach(d=>m+=d.min||0);heatArr.push({m,fut:dt>stripTime(now2)});if(m>maxM)maxM=m;}
+  const heatCells=heatArr.map(c=>{if(c.fut)return '<div style="background:#F3EEE3"></div>';if(c.m<=0)return '<div style="background:#EFE7D8"></div>';const op=(0.35+0.65*Math.min(1,c.m/Math.max(45,maxM))).toFixed(2);return `<div style="background:#6E8B4E;opacity:${op}"></div>`;}).join("");
+  const html=`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Relatório de Preparação — Consultoria</title>
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#2A241C;background:#EDE7DA;line-height:1.5;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.bar{position:sticky;top:0;padding:14px;text-align:center;background:#EDE7DA;border-bottom:1px solid #d8ccb4}
+.bar button{background:#A0522C;color:#fff;border:none;padding:12px 24px;border-radius:10px;font-weight:700;font-size:15px;cursor:pointer;font-family:inherit}
+.bar span{display:block;margin-top:8px;font-size:12px;color:#8A7C63}
+.page{max-width:820px;margin:22px auto 40px;background:#fff;padding:46px 52px;box-shadow:0 6px 30px rgba(0,0,0,.12)}
+h1{font-family:Georgia,'Times New Roman',serif;font-size:25px;color:#5E3418;letter-spacing:-.4px;line-height:1.2}
+.sub{color:#8A7C63;font-size:13.5px;margin-top:7px}
+.meta{display:flex;flex-wrap:wrap;gap:6px 26px;margin:16px 0 4px;font-size:13px;color:#5b5344;border-top:2px solid #A0522C;border-bottom:1px solid #E0D4BC;padding:12px 0}
+.meta b{color:#2A241C}
+h2{font-family:Georgia,serif;font-size:17px;color:#5E3418;margin:30px 0 13px;padding-bottom:6px;border-bottom:1px solid #E0D4BC}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.kpi{border:1px solid #E0D4BC;border-radius:10px;padding:13px 15px;background:#FAF6EC}
+.kpi .n{font-family:Georgia,serif;font-size:24px;color:#5E3418;line-height:1}
+.kpi .l{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:#8A7C63;font-weight:700;margin-top:5px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;color:#8A7C63;font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;padding:7px 8px;border-bottom:2px solid #E0D4BC}
+th.c,td.c{text-align:right;white-space:nowrap}
+td{padding:9px 8px;border-bottom:1px solid #EFE7D8;vertical-align:top}
+.dot{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:8px}
+.sub2{font-size:11.5px;color:#a99e86;margin-top:3px}
+.note{border-left:3px solid #C9A24A;background:#FBF7EE;border-radius:0 8px 8px 0;padding:10px 13px;margin-bottom:9px}
+.note-h{font-size:12px;color:#5b5344;margin-bottom:3px;overflow:hidden}
+.note-h .d{float:right;color:#a99e86;font-size:11px;font-weight:400}
+.note-h .ok{color:#6E8B4E;font-weight:700}
+.note p{font-size:13px;color:#3a3327}
+.empty{color:#a99e86;font-size:13px}
+.chart{margin:4px 0 6px}
+.hbar{display:flex;align-items:center;gap:12px;padding:7px 0}
+.hbar .nm{width:130px;font-size:13px;flex:none}
+.hbar .track{flex:1;height:12px;background:#EFE7D8;border-radius:6px;overflow:hidden}
+.hbar .track span{display:block;height:100%;border-radius:6px}
+.hbar .val{width:96px;text-align:right;font-size:12.5px;font-weight:700;color:#5b5344;flex:none}
+.edrow{margin-bottom:13px}
+.edrow-h{display:flex;justify-content:space-between;gap:8px;font-size:13px;font-weight:700;margin-bottom:5px}
+.edrow-h .c{color:#8A7C63;font-family:monospace;font-weight:700}
+.edbar{height:8px;background:#EFE7D8;border-radius:4px;overflow:hidden}
+.edbar span{display:block;height:100%;background:#6E8B4E;border-radius:4px}
+.exec{background:#FAF3E6;border-left:4px solid #A0522C;border-radius:0 10px 10px 0;padding:15px 17px;margin:18px 0 2px;font-size:14.5px;line-height:1.55;color:#3a3327}
+.heatwrap{display:flex;gap:7px;align-items:stretch;margin-top:4px}
+.heatlbl{display:grid;grid-template-rows:repeat(7,1fr);gap:4px;height:150px;font-size:9px;color:#a99e86}
+.heatlbl span{display:flex;align-items:center;line-height:1}
+.heat{display:grid;grid-template-columns:repeat(10,1fr);grid-template-rows:repeat(7,1fr);grid-auto-flow:column;gap:4px;height:150px;flex:1;max-width:660px}
+.heat>div{border-radius:3px;border:1px solid #EBE1CE}
+.radarrow{display:flex;gap:24px;flex-wrap:wrap;margin-top:8px}
+.radarcell{flex:1;min-width:240px}
+.radarcell h3{font-family:Georgia,serif;font-size:14.5px;color:#5E3418;margin-bottom:0;text-align:center}
+.cap{font-size:11px;color:#a99e86;text-align:center;margin-top:6px;line-height:1.45}
+.foot{margin-top:36px;padding-top:14px;border-top:1px solid #E0D4BC;font-size:11px;color:#a99e86;text-align:center}
+@media print{.bar{display:none}.page{box-shadow:none;margin:0;max-width:none;padding:0}body{background:#fff}
+h2{page-break-after:avoid;break-after:avoid}
+h3{page-break-after:avoid;break-after:avoid}
+.note,.kpi,.hbar,.edrow,.chart,.heatwrap,.radarrow,.radarcell,.exec,svg{page-break-inside:avoid;break-inside:avoid}
+.kpis{page-break-inside:avoid;break-inside:avoid}}
+@page{margin:15mm}</style></head><body>
+<div class="bar"><button onclick="window.print()">Imprimir / Salvar como PDF</button><span>Use “Salvar como PDF” no destino da impressão para gerar o arquivo.</span></div>
+<div class="page">
+<h1>Relatório de Preparação — Processos Seletivos de Consultoria</h1>
+<div class="sub">${name?esc(name)+" · ":""}Preparação estruturada para case interviews, GMAT e entrevista de fit</div>
+<div class="meta"><div>Período: <b>${fmtDate(firstKey)} – ${fmtDate(todayKey())}</b></div><div>Dias de preparação: <b>${periodDays}</b></div><div>Final round alvo: <b>${fmtDate(state.config.interviewDate)}${daysToIv>=0?" ("+daysToIv+" dias)":""}</b></div></div>
+<div class="exec">${execSummary}</div>
+<h2>Resumo</h2>
+<div class="kpis">
+<div class="kpi"><div class="n">${daysStudied}</div><div class="l">Dias estudados</div></div>
+<div class="kpi"><div class="n">${consistency}%</div><div class="l">Consistência</div></div>
+<div class="kpi"><div class="n">${hoursStr}h</div><div class="l">Horas estudadas</div></div>
+<div class="kpi"><div class="n">${totQ}</div><div class="l">Questões feitas</div></div>
+<div class="kpi"><div class="n">${accOverall}%</div><div class="l">Acerto geral</div></div>
+<div class="kpi"><div class="n">${maxStreak}</div><div class="l">Maior ofensiva (dias)</div></div>
+</div>
+<h2>Evolução do acerto</h2>
+<div class="chart">${svgLine}</div>
+<h2>Consistência — últimas ${HW} semanas</h2>
+<p style="font-size:12.5px;color:#5b5344;margin-bottom:10px">Cada quadradinho é um dia; quanto mais escuro, mais tempo de estudo.</p>
+<div class="heatwrap"><div class="heatlbl"><span>S</span><span>T</span><span>Q</span><span>Q</span><span>S</span><span>S</span><span>D</span></div><div class="heat">${heatCells}</div></div>
+<h2>Tempo dedicado por área</h2>
+<div class="chart">${timeBars}</div>
+${radarSection}
+<h2>Progresso no edital de estudos</h2>
+<p style="font-size:13px;color:#5b5344;margin-bottom:13px"><b>${editDone} de ${SYLLABUS_TOTAL}</b> tópicos dominados (${editPct}%).</p>
+${editModules}
+<h2>Caderno de cases — aprendizados (${insights.length})</h2>
+${insHtml}
+<div class="foot">Gerado pelo app Rumo à Offer · ${fmtDate(todayKey())}</div>
+</div></body></html>`;
+  try{
+    const blob=new Blob([html],{type:"text/html"});const url=URL.createObjectURL(blob);
+    const w=window.open(url,"_blank");
+    if(!w){const a=document.createElement("a");a.href=url;a.download="relatorio-estudos.html";a.click();toast("Relatório baixado — abra e use Imprimir → PDF");}
+    else toast("Relatório gerado ✓");
+  }catch(e){toast("Não consegui gerar o relatório 😕");}
+}
 let toastT;function toast(msg){const el=document.getElementById("toast");el.textContent=msg;el.classList.add("show");clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove("show"),2200);}
 let headerT;function debounceHeader(){clearTimeout(headerT);headerT=setTimeout(renderHeader,400);}
 
