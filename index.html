@@ -46,7 +46,8 @@ html{-webkit-text-size-adjust:100%}
 body{font-family:var(--body);background:var(--paper);color:var(--ink);line-height:1.5;
   -webkit-font-smoothing:antialiased;padding-bottom:88px;min-height:100vh;transition:background .3s,color .3s}
 button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
-input,select,textarea{font-family:inherit;font-size:1rem;color:var(--ink)}
+input,select,textarea{font-family:inherit;font-size:16px;color:var(--ink)}
+button,input,select,textarea,a,.navbtn,.pill,.ctchip,.revtoggle{touch-action:manipulation}
 ::selection{background:var(--indigo);color:#fff}
 .mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
 
@@ -118,11 +119,11 @@ main{max-width:760px;margin:0 auto;padding:20px 16px 24px}
 .insighttoggle{color:var(--jade)}
 .revbox,.insbox{margin-top:9px;display:none}
 .revbox.open,.insbox.open{display:block}
-.revbox textarea{width:100%;min-height:56px;padding:10px;border:1px solid var(--amber);border-radius:10px;background:var(--amber-soft);resize:vertical;font-size:.85rem}
+.revbox textarea{width:100%;min-height:56px;padding:10px;border:1px solid var(--amber);border-radius:10px;background:var(--amber-soft);resize:vertical;font-size:16px}
 .revbox textarea:focus{outline:none;box-shadow:0 0 0 3px rgba(192,138,44,.2)}
-.insbox textarea{width:100%;min-height:64px;padding:10px;border:1px solid var(--jade);border-radius:10px;background:var(--jade-soft);resize:vertical;font-size:.85rem}
+.insbox textarea{width:100%;min-height:64px;padding:10px;border:1px solid var(--jade);border-radius:10px;background:var(--jade-soft);resize:vertical;font-size:16px}
 .insbox textarea:focus{outline:none;box-shadow:0 0 0 3px rgba(110,139,78,.2)}
-.daynote{width:100%;min-height:62px;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface-2);resize:vertical;font-size:.9rem}
+.daynote{width:100%;min-height:62px;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface-2);resize:vertical;font-size:16px}
 .daynote:focus{outline:none;border-color:var(--indigo);box-shadow:0 0 0 3px var(--indigo-soft)}
 .bigbtn{width:100%;padding:15px;border-radius:14px;font-weight:700;font-size:.98rem;background:var(--indigo);color:#FAF6EC;
   display:flex;align-items:center;justify-content:center;gap:9px;transition:transform .12s,background .2s;box-shadow:0 6px 18px rgba(160,90,44,.3)}
@@ -246,10 +247,8 @@ nav{position:fixed;bottom:0;left:0;right:0;z-index:40;background:var(--surface);
   .brandrow{justify-content:flex-end}
   main{max-width:920px;margin:0 auto}
   .statgrid{grid-template-columns:repeat(4,1fr)}
-  #todayBlocks{column-count:2;column-gap:16px}
-  #todayBlocks .arearow{break-inside:avoid}
-  #reviewList,#insightList{column-count:2;column-gap:16px}
-  #reviewList .revitem,#insightList .insitem{break-inside:avoid}
+  #todayBlocks{display:grid;grid-template-columns:1fr 1fr;gap:0 16px;align-items:start}
+  #reviewList,#insightList{display:grid;grid-template-columns:1fr 1fr;gap:0 16px;align-items:start}
 }
 </style>
 </head>
@@ -498,9 +497,9 @@ function renderToday(){
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></button></div>
       ${k==="cases"?`<div class="casetypes"><span class="ctlabel">Tipo:</span>${CASE_TYPES.map(ct=>`<button class="ctchip ${data.caseType===ct.key?"on":""}" data-ct="${ct.key}" data-a="${k}">${ct.name}</button>`).join("")}</div>`:""}
       <div class="ar-fields">
-        <div class="field"><label>Minutos</label><input type="number" inputmode="numeric" min="0" data-f="min" data-a="${k}" value="${data.min||""}" placeholder="0"></div>
-        <div class="field"><label>Questões</label><input type="number" inputmode="numeric" min="0" data-f="q" data-a="${k}" value="${data.q||""}" placeholder="0"></div>
-        <div class="field"><label>Acertos</label><input type="number" inputmode="numeric" min="0" data-f="c" data-a="${k}" value="${data.c||""}" placeholder="0"></div></div>
+        <div class="field"><label>Minutos</label><input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="5" data-f="min" data-a="${k}" value="${data.min||""}" placeholder="0"></div>
+        <div class="field"><label>Questões</label><input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="5" data-f="q" data-a="${k}" value="${data.q||""}" placeholder="0"></div>
+        <div class="field"><label>Acertos</label><input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="5" data-f="c" data-a="${k}" value="${data.c||""}" placeholder="0"></div></div>
       <div class="ar-acc"><div class="bar"><span data-accbar="${k}"></span></div><span class="pct mono" data-accpct="${k}">—</span></div>
       <div class="ar-actions">
         <button class="revtoggle" data-revtoggle="${k}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg>O que revisar</button>
@@ -609,7 +608,7 @@ function renderPlanEditor(){
   const ed=document.getElementById("planEditor"),order=[1,2,3,4,5,6,0];
   ed.innerHTML=order.map(dw=>{const dayPlan=state.config.plan[dw]||{},active=AREAS.filter(a=>state.config.areasOn[a.key]);
     const tot=active.reduce((s,a)=>s+(dayPlan[a.key]||0),0);
-    return`<div class="dayblock"><div class="dh"><span>${WD_FULL[dw]}</span><span class="tot">${fmtMin(tot)}</span></div>${active.map(a=>`<div class="planrow"><span class="sw" style="background:${a.color}"></span><span class="nm">${a.name}</span><input type="number" inputmode="numeric" min="0" step="5" data-plan-dw="${dw}" data-plan-a="${a.key}" value="${dayPlan[a.key]||""}" placeholder="0"><span class="u">min</span></div>`).join("")}</div>`;}).join("");
+    return`<div class="dayblock"><div class="dh"><span>${WD_FULL[dw]}</span><span class="tot">${fmtMin(tot)}</span></div>${active.map(a=>`<div class="planrow"><span class="sw" style="background:${a.color}"></span><span class="nm">${a.name}</span><input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="4" data-plan-dw="${dw}" data-plan-a="${a.key}" value="${dayPlan[a.key]||""}" placeholder="0"><span class="u">min</span></div>`).join("")}</div>`;}).join("");
 }
 
 /* eventos */
@@ -628,7 +627,7 @@ document.getElementById("todayBlocks").addEventListener("input",e=>{const t=e.ta
   const key=todayKey(),d=getArea(key,t.dataset.a);
   if(t.dataset.f==="rev")d.rev=t.value;
   else if(t.dataset.f==="insight")d.insight=t.value;
-  else{let v=parseInt(t.value,10);if(isNaN(v)||v<0)v=0;d[t.dataset.f]=v;if(t.dataset.f==="q"||t.dataset.f==="c")updateAcc(t.dataset.a);}
+  else{const cleaned=t.value.replace(/[^0-9]/g,"");if(cleaned!==t.value)t.value=cleaned;let v=parseInt(cleaned,10);if(isNaN(v)||v<0)v=0;d[t.dataset.f]=v;if(t.dataset.f==="q"||t.dataset.f==="c")updateAcc(t.dataset.a);}
   save();debounceHeader();}});
 document.getElementById("todayBlocks").addEventListener("click",e=>{
   const chk=e.target.closest("[data-check]");if(chk){const key=todayKey(),d=getArea(key,chk.dataset.check);d.done=!d.done;chk.classList.toggle("on",d.done);chk.closest(".arearow").classList.toggle("done",d.done);save();renderHeader();return;}
@@ -649,7 +648,7 @@ document.getElementById("presetRow").addEventListener("click",e=>{const p=e.targ
   const k=p.dataset.preset;state.config.activePreset=k;state.config.plan=JSON.parse(JSON.stringify(PRESETS[k].plan));
   save();renderPlanEditor();renderToday();toast("Preset “"+PRESETS[k].label+"” carregado");});
 document.getElementById("planEditor").addEventListener("input",e=>{const t=e.target;if(!t.dataset.planDw)return;
-  const dw=t.dataset.planDw,a=t.dataset.planA;let v=parseInt(t.value,10);if(isNaN(v)||v<0)v=0;
+  const dw=t.dataset.planDw,a=t.dataset.planA;const cleaned=t.value.replace(/[^0-9]/g,"");if(cleaned!==t.value)t.value=cleaned;let v=parseInt(cleaned,10);if(isNaN(v)||v<0)v=0;
   if(!state.config.plan[dw])state.config.plan[dw]={};if(v===0)delete state.config.plan[dw][a];else state.config.plan[dw][a]=v;
   const block=t.closest(".dayblock");if(block){const active=AREAS.filter(x=>state.config.areasOn[x.key]);const tot=active.reduce((s,x)=>s+(state.config.plan[dw][x.key]||0),0);block.querySelector(".tot").textContent=fmtMin(tot);}
   state.config.activePreset="custom";document.querySelectorAll("[data-preset]").forEach(x=>x.classList.remove("active"));save();});
