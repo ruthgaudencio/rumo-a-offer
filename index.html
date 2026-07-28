@@ -239,16 +239,37 @@ svg.chart{width:100%;height:auto;display:block;overflow:visible}
 .edcheck.on svg{opacity:1}
 .edtopic .t{font-size:.85rem;line-height:1.35}
 .edtopic.done .t{color:var(--faint);text-decoration:line-through}
+.convdetails summary{cursor:pointer;font-weight:600;font-size:.86rem;color:var(--indigo);padding:6px 0;list-style:none}
+.convdetails summary::-webkit-details-marker{display:none}
+.convdetails summary::before{content:"▸ ";color:var(--faint)}
+.convdetails[open] summary::before{content:"▾ "}
+.convtable{width:100%;border-collapse:collapse;font-size:.86rem;margin-top:8px}
+.convtable th{font-size:.64rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600;text-align:left;padding:6px 8px;border-bottom:2px solid var(--line)}
+.convtable td{padding:7px 8px;border-bottom:1px solid var(--line)}
+.convtable td.n{font-family:var(--mono);font-weight:500;text-align:right;white-space:nowrap}
+.convtable td.frac{font-family:var(--mono);font-weight:700;white-space:nowrap}
+.convtable .grouprow td{font-weight:700;font-size:.68rem;letter-spacing:.04em;color:var(--indigo-deep);background:var(--surface-2);text-transform:uppercase;border-bottom:none;padding-top:9px}
 .reportfield label{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600;margin:0 0 6px}
 .reportfield input{width:100%;padding:11px 13px;border:1px solid var(--line-strong);border-radius:11px;background:var(--surface-2);margin-bottom:13px}
 .reportfield input:focus{outline:none;border-color:var(--indigo);box-shadow:0 0 0 3px var(--indigo-soft)}
 nav{position:fixed;bottom:0;left:0;right:0;z-index:40;background:var(--surface);border-top:1px solid var(--line);
   padding:8px 8px calc(env(safe-area-inset-bottom) + 8px);display:flex;justify-content:space-around;box-shadow:0 -4px 20px rgba(56,48,31,.07)}
-.navbtn{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 2px;border-radius:12px;color:var(--faint);font-size:.64rem;font-weight:600;transition:color .15s;flex:1;min-width:0;max-width:110px}
-.navbtn svg{width:22px;height:22px}
+.navbtn{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 1px;border-radius:12px;color:var(--faint);font-size:.62rem;font-weight:600;transition:color .15s;flex:1;min-width:0;max-width:110px}
+.navbtn svg{width:21px;height:21px}
 .navbtn.active{color:var(--indigo)}
 .navbtn.active .nbg{background:var(--indigo-soft)}
-.nbg{padding:4px 14px;border-radius:11px;transition:background .2s}
+.nbg{padding:4px 11px;border-radius:11px;transition:background .2s}
+.quizscore{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;font-size:.78rem;color:var(--muted);font-weight:600;margin-bottom:20px}
+.quizscore b{color:var(--indigo)}
+.quizq{text-align:center;font-family:var(--display);font-weight:600;font-size:2.6rem;color:var(--ink);margin:6px 0 24px;line-height:1.1}
+.quizq small{display:block;font-family:var(--body);font-size:.86rem;font-weight:500;color:var(--muted);margin-bottom:8px}
+.quizopts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.quizopt{padding:18px 12px;border-radius:14px;border:1.5px solid var(--line-strong);background:var(--surface-2);color:var(--ink);font-family:var(--mono);font-weight:700;font-size:1.25rem;transition:transform .1s,background .15s,border-color .15s}
+.quizopt:active:not(:disabled){transform:scale(.97)}
+.quizopt.correct{background:var(--jade);border-color:var(--jade);color:#fff}
+.quizopt.wrong{background:var(--rose);border-color:var(--rose);color:#fff}
+.quizopt.dim{opacity:.45}
+.quizreveal{text-align:center;font-family:var(--mono);font-weight:700;font-size:1.02rem;color:var(--indigo-deep);margin-top:16px;min-height:1px}
 .sidebrand{display:none;align-items:center;gap:10px;padding:0 6px 18px;margin-bottom:8px;border-bottom:1px solid var(--line)}
 .sidebrand .sbmark{width:32px;height:32px;border-radius:9px;background:linear-gradient(160deg,var(--indigo-deep),var(--indigo));display:grid;place-items:center;flex:none}
 .sidebrand .sbmark svg{width:19px;height:19px}
@@ -381,12 +402,29 @@ nav{position:fixed;bottom:0;left:0;right:0;z-index:40;background:var(--surface);
     <div id="insightList"></div>
   </section>
 
+  <section class="view" id="view-treino">
+    <div class="sectiontitle">Treino de conversões</div><div class="sectionsub">Decimal e porcentagem — clique na resposta certa e memorize praticando</div>
+    <div class="card" id="quizCard">
+      <div class="quizscore" id="quizScore"></div>
+      <div class="quizq" id="quizQ"></div>
+      <div class="quizopts" id="quizOpts"></div>
+      <div class="quizreveal" id="quizReveal"></div>
+      <button class="bigbtn" id="quizNext" style="display:none;margin-top:16px">Próxima →</button>
+    </div>
+    <div class="sd" style="text-align:center;color:var(--faint);font-size:.76rem">Treino de fração → porcentagem. A tabela completa fica em Plano.</div>
+  </section>
+
   <section class="view" id="view-plano">
     <div class="sectiontitle">Plano &amp; Ajustes</div><div class="sectionsub">Personalize o cronograma do seu jeito</div>
     <div class="card" id="editalCard">
       <div class="card-h"><h3>Edital de estudos</h3><span class="hint">o que dominar para o processo</span></div>
       <div class="editaltop"><div class="track"><span id="editalBar"></span></div><span class="pc" id="editalPct">0%</span></div>
       <div id="editalBody"></div>
+    </div>
+    <div class="card">
+      <div class="card-h"><h3>Tabela de conversões</h3><span class="hint">fração · decimal · %</span></div>
+      <div class="sd" style="color:var(--muted);font-size:.82rem;margin-bottom:6px;line-height:1.5">Técnica de mental math: memorize as conversões mais comuns pra acelerar cálculos de porcentagem, market share e margens.</div>
+      <details class="convdetails" open><summary>Ver tabela</summary><div id="convBody"></div></details>
     </div>
     <div class="card"><div class="card-h"><h3>Datas</h3></div>
       <div class="setrow"><div><div class="sl">Início dos estudos (Dia 1)</div><div class="sd">Primeiro dia do seu curso/preparação</div></div><input type="date" id="startDate"></div>
@@ -423,6 +461,7 @@ nav{position:fixed;bottom:0;left:0;right:0;z-index:40;background:var(--surface);
   <button class="navbtn" data-view="progresso"><span class="nbg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg></span>Progresso</button>
   <button class="navbtn" data-view="revisoes"><span class="nbg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4a7 7 0 100 14 7 7 0 000-14z"/><path d="M11 8v3l2 1"/><path d="M20 20l-3-3"/></svg></span>Revisar</button>
   <button class="navbtn" data-view="insights"><span class="nbg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 012-2h9a2 2 0 012 2v16l-6-3-6 3z"/><path d="M8 7h6M8 11h6"/></svg></span>Caderno</button>
+  <button class="navbtn" data-view="treino"><span class="nbg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg></span>Treino</button>
   <button class="navbtn" data-view="plano"><span class="nbg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/><circle cx="18" cy="18" r="2.5"/></svg></span>Plano</button>
 </nav>
 
@@ -543,6 +582,18 @@ const SYLLABUS=[
     "Pontos fortes e a desenvolver","Perguntas inteligentes para o entrevistador"]},
 ];
 const SYLLABUS_TOTAL=SYLLABUS.reduce((s,m)=>s+m.topics.length,0);
+
+/* Tabela de conversões fração → decimal → % (técnica de mental math) */
+const CONVERSIONS=[
+  {g:"Meios",f:[[1,2]]},
+  {g:"Terços",f:[[1,3],[2,3]]},
+  {g:"Quartos",f:[[1,4],[3,4]]},
+  {g:"Quintos",f:[[1,5],[2,5],[3,5],[4,5]]},
+  {g:"Sextos",f:[[1,6],[5,6]]},
+  {g:"Sétimos",f:[[1,7],[2,7],[3,7]]},
+  {g:"Oitavos",f:[[1,8],[3,8],[5,8],[7,8]]},
+  {g:"Nonos a doze avos",f:[[1,9],[1,10],[1,11],[1,12]]},
+];
 /* Presets leves — ~30 min dias úteis, ~1h30 fim de semana. Chave = dia JS (0=Dom..6=Sáb) */
 const PRESETS={
   fundamentos:{label:"Fundamentos",desc:"Base de GMAT + math. >8 semanas",plan:{
@@ -563,10 +614,10 @@ function presetForDate(dateStr){const days=daysBetween(new Date(),parseKey(dateS
 function defaultState(){const interviewDate="2026-10-22";const preset=presetForDate(interviewDate);
   return{version:3,theme:"light",hideHelp:false,config:{interviewDate,startDate:"2026-07-20",
     areasOn:{quant:true,math:true,cases:true,fit:true},
-    activePreset:preset,plan:JSON.parse(JSON.stringify(PRESETS[preset].plan))},logs:{},resolved:{},edital:{},reportName:""};}
+    activePreset:preset,plan:JSON.parse(JSON.stringify(PRESETS[preset].plan))},logs:{},resolved:{},edital:{},reportName:"",quizBest:0};}
 function load(){try{const raw=localStorage.getItem(STORAGE_KEY);if(!raw)return defaultState();
   const s=JSON.parse(raw);const d=defaultState();
-  const merged={...d,...s,config:{...d.config,...(s.config||{})},logs:s.logs||{},resolved:s.resolved||{},edital:s.edital||{},reportName:s.reportName||""};
+  const merged={...d,...s,config:{...d.config,...(s.config||{})},logs:s.logs||{},resolved:s.resolved||{},edital:s.edital||{},reportName:s.reportName||"",quizBest:s.quizBest||0};
   if((s.version||1)<2){ // migra da versão antiga (tinha GMAT Verbal e Market sizing como áreas)
     merged.version=2;
     merged.config.areasOn={quant:true,math:true,cases:true,fit:true};
@@ -774,7 +825,54 @@ function renderInsights(){
   el.innerHTML=items.map(it=>{const a=AREA_MAP[it.ak],dt=parseKey(it.key),ct=it.ct&&CT_MAP[it.ct];
     return`<div class="insitem"><div class="meta"><span class="tag" style="background:${a.color}">${a.name}</span>${ct?`<span class="cttag">${ct.name}</span>`:""}<span class="date">${dt.getDate()} ${MON[dt.getMonth()]}</span><button class="delins" data-delins="${it.key}|${it.ak}" aria-label="Apagar insight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button></div><div class="txt">${escapeHtml(it.txt)}</div></div>`;}).join("");
 }
+/* Treino (jogo) de conversões fração → % */
+let quiz={}, quizTotal=0, quizCorrect=0, quizStreak=0;
+const ALL_FRACS=CONVERSIONS.flatMap(g=>g.f);
+function quizPct(n,d){let p=Math.round(n/d*1000)/10;return (Number.isInteger(p)?p:p.toFixed(1))+"%";}
+function quizDec(n,d){return (n/d).toFixed(3);}
+function newQuiz(){
+  const[n,d]=ALL_FRACS[Math.floor(Math.random()*ALL_FRACS.length)];
+  const mode=Math.random()<0.5?"pct":"dec";
+  const fmt=mode==="pct"?quizPct:quizDec;
+  const correct=fmt(n,d);
+  const pool=[...new Set(ALL_FRACS.map(([a,b])=>fmt(a,b)))].filter(x=>x!==correct);
+  const distr=[];while(distr.length<3&&pool.length)distr.push(pool.splice(Math.floor(Math.random()*pool.length),1)[0]);
+  const options=[correct,...distr];
+  for(let i=options.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[options[i],options[j]]=[options[j],options[i]];}
+  quiz={n,d,mode,correct,options,answered:false,picked:null};
+  renderQuiz();
+}
+function renderQuiz(){
+  const sc=document.getElementById("quizScore");if(!sc||!quiz.options)return;
+  sc.innerHTML=`Acertos <b>${quizCorrect}/${quizTotal}</b> · Sequência <b>${quizStreak}</b> · Recorde <b>${state.quizBest||0}</b>`;
+  document.getElementById("quizQ").innerHTML=`<small>Quanto é, em ${quiz.mode==="dec"?"decimal":"porcentagem"}?</small>${quiz.n}/${quiz.d}`;
+  document.getElementById("quizOpts").innerHTML=quiz.options.map(o=>{
+    let cls="quizopt";
+    if(quiz.answered){if(o===quiz.correct)cls+=" correct";else if(o===quiz.picked)cls+=" wrong";else cls+=" dim";}
+    return `<button class="${cls}" data-opt="${o}" ${quiz.answered?"disabled":""}>${o}</button>`;
+  }).join("");
+  document.getElementById("quizReveal").textContent=quiz.answered?`${quiz.n}/${quiz.d} = ${quizDec(quiz.n,quiz.d)} = ${quizPct(quiz.n,quiz.d)}`:"";
+  document.getElementById("quizNext").style.display=quiz.answered?"flex":"none";
+}
+function answerQuiz(o){
+  if(quiz.answered)return;
+  quiz.answered=true;quiz.picked=o;quizTotal++;
+  if(o===quiz.correct){quizCorrect++;quizStreak++;if(quizStreak>(state.quizBest||0)){state.quizBest=quizStreak;save();}}
+  else quizStreak=0;
+  renderQuiz();
+}
+function renderConversions(){
+  const el=document.getElementById("convBody");if(!el)return;
+  const pct=(n,d)=>{let p=Math.round(n/d*1000)/10;return (Number.isInteger(p)?p:p.toFixed(1))+"%";};
+  let rows="";
+  CONVERSIONS.forEach(gr=>{
+    rows+=`<tr class="grouprow"><td colspan="3">${gr.g}</td></tr>`;
+    gr.f.forEach(([n,d])=>{rows+=`<tr><td class="frac">${n}/${d}</td><td class="n">${(n/d).toFixed(3)}</td><td class="n">${pct(n,d)}</td></tr>`;});
+  });
+  el.innerHTML=`<table class="convtable"><thead><tr><th>Fração</th><th style="text-align:right">Decimal</th><th style="text-align:right">Porcentagem</th></tr></thead><tbody>${rows}</tbody></table>`;
+}
 function renderPlanEditor(){
+  renderConversions();
   document.getElementById("interviewDate").value=state.config.interviewDate;
   const sd=document.getElementById("startDate");if(sd)sd.value=state.config.startDate||"2026-07-20";
   const rn=document.getElementById("reportName");if(rn)rn.value=state.reportName||"";
@@ -792,7 +890,10 @@ document.querySelectorAll(".navbtn").forEach(b=>{b.addEventListener("click",()=>
   const v=b.dataset.view;document.querySelectorAll(".view").forEach(x=>x.classList.remove("active"));
   document.getElementById("view-"+v).classList.add("active");
   if(v==="progresso")renderProgress();if(v==="revisoes")renderReviews();if(v==="insights")renderInsights();
+  if(v==="treino"){if(!quiz.options)newQuiz();else renderQuiz();}
   window.scrollTo({top:0,behavior:"smooth"});});});
+document.getElementById("quizOpts").addEventListener("click",e=>{const btn=e.target.closest("[data-opt]");if(btn&&!btn.disabled)answerQuiz(btn.dataset.opt);});
+document.getElementById("quizNext").addEventListener("click",newQuiz);
 document.getElementById("themeBtn").addEventListener("click",()=>{state.theme=state.theme==="dark"?"light":"dark";applyTheme();save();});
 function applyTheme(){document.documentElement.setAttribute("data-theme",state.theme);
   document.querySelector('meta[name=theme-color]').setAttribute("content",state.theme==="dark"?"#211B12":"#5E3418");
@@ -1043,7 +1144,7 @@ let headerT;function debounceHeader(){clearTimeout(headerT);headerT=setTimeout(r
 /* ============================================================
    SINCRONIZAÇÃO (Firebase) — isolada: se falhar, o app segue local
 ============================================================ */
-let fbAuth=null, fbDB=null, syncUser=null, unsub=null, pushT=null, applyingRemote=false;
+let fbAuth=null, fbDB=null, syncUser=null, unsub=null, pushT=null, applyingRemote=false, lastPushedStr="";
 function initFirebase(){
   if(!SYNC_ON || typeof firebase==="undefined") return;
   try{
@@ -1068,10 +1169,15 @@ async function startSync(){
     pushRemoteNow(); // garante o merge no remoto
     if(unsub) unsub();
     unsub=docRef().onSnapshot(s=>{
-      if(!s.exists || s.metadata.hasPendingWrites) return; // ignora eco da própria escrita
+      if(!s.exists || s.metadata.hasPendingWrites) return; // ignora escrita local otimista
       const d=s.data(); if(!d||!d.data) return;
-      applyingRemote=true; mergeRemote(JSON.parse(d.data)); applyingRemote=false;
-      save(); applyTheme(); renderAll();
+      if(d.data===lastPushedStr) return;          // eco da própria escrita confirmada pelo servidor
+      if(d.data===JSON.stringify(state)) return;  // já estamos idênticos, nada a fazer
+      applyingRemote=true; mergeRemote(JSON.parse(d.data)); save(); applyingRemote=false;
+      applyTheme();
+      const ae=document.activeElement;
+      if(ae && (ae.tagName==="TEXTAREA"||ae.tagName==="INPUT") && ae.closest && ae.closest("#todayBlocks")) return; // não redesenha enquanto você digita
+      renderAll();
     }, err=>console.warn("snapshot",err));
   }catch(e){ console.warn("startSync",e); }
 }
@@ -1088,7 +1194,8 @@ function mergeRemote(remote){
 function pushRemote(){ if(!syncUser||applyingRemote) return; clearTimeout(pushT); pushT=setTimeout(pushRemoteNow,900); }
 function pushRemoteNow(){
   if(!syncUser) return;
-  try{ docRef().set({data:JSON.stringify(state),updatedAt:firebase.firestore.FieldValue.serverTimestamp()}).catch(e=>console.warn("push",e)); }
+  try{ const payload=JSON.stringify(state); lastPushedStr=payload;
+    docRef().set({data:payload,updatedAt:firebase.firestore.FieldValue.serverTimestamp()}).catch(e=>console.warn("push",e)); }
   catch(e){ console.warn("pushNow",e); }
 }
 function authErrMsg(e){ const c=(e&&e.code)||"";
