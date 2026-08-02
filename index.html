@@ -248,7 +248,11 @@ svg.chart{width:100%;height:auto;display:block;overflow:visible}
 .convtable td{padding:7px 8px;border-bottom:1px solid var(--line)}
 .convtable td.n{font-family:var(--mono);font-weight:500;text-align:right;white-space:nowrap}
 .convtable td.frac{font-family:var(--mono);font-weight:700;white-space:nowrap}
-.convtable .grouprow td{font-weight:700;font-size:.68rem;letter-spacing:.04em;color:var(--indigo-deep);background:var(--surface-2);text-transform:uppercase;border-bottom:none;padding-top:9px}
+#expBody{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:11px;margin-top:8px}
+.expblock{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--surface-2)}
+.exphd{font-weight:700;font-size:.8rem;color:var(--indigo-deep);margin-bottom:6px;border-bottom:1px solid var(--line);padding-bottom:5px}
+.exprow{display:flex;justify-content:space-between;gap:8px;font-size:.82rem;padding:3px 0;font-family:var(--mono)}
+.exprow .n{font-weight:700}
 .reportfield label{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600;margin:0 0 6px}
 .reportfield input{width:100%;padding:11px 13px;border:1px solid var(--line-strong);border-radius:11px;background:var(--surface-2);margin-bottom:13px}
 .reportfield input:focus{outline:none;border-color:var(--indigo);box-shadow:0 0 0 3px var(--indigo-soft)}
@@ -403,7 +407,7 @@ nav{position:fixed;bottom:0;left:0;right:0;z-index:40;background:var(--surface);
   </section>
 
   <section class="view" id="view-treino">
-    <div class="sectiontitle">Treino de conversões</div><div class="sectionsub">Decimal e porcentagem — clique na resposta certa e memorize praticando</div>
+    <div class="sectiontitle">Treino</div><div class="sectionsub">Conversões e potências — clique na resposta certa e memorize praticando</div>
     <div class="card" id="quizCard">
       <div class="quizscore" id="quizScore"></div>
       <div class="quizq" id="quizQ"></div>
@@ -411,7 +415,7 @@ nav{position:fixed;bottom:0;left:0;right:0;z-index:40;background:var(--surface);
       <div class="quizreveal" id="quizReveal"></div>
       <button class="bigbtn" id="quizNext" style="display:none;margin-top:16px">Próxima →</button>
     </div>
-    <div class="sd" style="text-align:center;color:var(--faint);font-size:.76rem">Treino de fração → porcentagem. A tabela completa fica em Plano.</div>
+    <div class="sd" style="text-align:center;color:var(--faint);font-size:.76rem">Cobre conversões (fração · decimal · %) e potências. As tabelas completas ficam em Plano.</div>
   </section>
 
   <section class="view" id="view-plano">
@@ -425,6 +429,11 @@ nav{position:fixed;bottom:0;left:0;right:0;z-index:40;background:var(--surface);
       <div class="card-h"><h3>Tabela de conversões</h3><span class="hint">fração · decimal · %</span></div>
       <div class="sd" style="color:var(--muted);font-size:.82rem;margin-bottom:6px;line-height:1.5">Técnica de mental math: memorize as conversões mais comuns pra acelerar cálculos de porcentagem, market share e margens.</div>
       <details class="convdetails" open><summary>Ver tabela</summary><div id="convBody"></div></details>
+    </div>
+    <div class="card">
+      <div class="card-h"><h3>Tabuada exponencial</h3><span class="hint">potências de 2 a 7</span></div>
+      <div class="sd" style="color:var(--muted);font-size:.82rem;margin-bottom:6px;line-height:1.5">Potências que aceleram estimativas, sizing e cálculos de crescimento.</div>
+      <details class="convdetails" open><summary>Ver tabela</summary><div id="expBody"></div></details>
     </div>
     <div class="card"><div class="card-h"><h3>Datas</h3></div>
       <div class="setrow"><div><div class="sl">Início dos estudos (Dia 1)</div><div class="sd">Primeiro dia do seu curso/preparação</div></div><input type="date" id="startDate"></div>
@@ -583,16 +592,30 @@ const SYLLABUS=[
 ];
 const SYLLABUS_TOTAL=SYLLABUS.reduce((s,m)=>s+m.topics.length,0);
 
-/* Tabela de conversões fração → decimal → % (técnica de mental math) */
+/* Tabela de conversões fração → decimal → % (valores conforme o caderno) */
 const CONVERSIONS=[
-  {g:"Meios",f:[[1,2]]},
-  {g:"Terços",f:[[1,3],[2,3]]},
-  {g:"Quartos",f:[[1,4],[3,4]]},
-  {g:"Quintos",f:[[1,5],[2,5],[3,5],[4,5]]},
-  {g:"Sextos",f:[[1,6],[5,6]]},
-  {g:"Sétimos",f:[[1,7],[2,7],[3,7]]},
-  {g:"Oitavos",f:[[1,8],[3,8],[5,8],[7,8]]},
-  {g:"Nonos a doze avos",f:[[1,9],[1,10],[1,11],[1,12]]},
+  {frac:"1/2",dec:"0,5",pct:"50%"},
+  {frac:"1/3",dec:"0,33",pct:"33,33%"},
+  {frac:"1/4",dec:"0,25",pct:"25%"},
+  {frac:"1/5",dec:"0,2",pct:"20%"},
+  {frac:"1/6",dec:"0,166",pct:"16,66%"},
+  {frac:"1/7",dec:"0,14",pct:"14,3%"},
+  {frac:"1/8",dec:"0,125",pct:"12,5%"},
+  {frac:"1/9",dec:"0,11",pct:"11,11%"},
+  {frac:"1/10",dec:"0,1",pct:"10%"},
+  {frac:"1/20",dec:"0,05",pct:"5%"},
+  {frac:"1/25",dec:"0,04",pct:"4%"},
+  {frac:"1/50",dec:"0,02",pct:"2%"},
+  {frac:"1/100",dec:"0,01",pct:"1%"},
+];
+/* Tabuada exponencial (potências) — conforme o caderno */
+const EXPONENTS=[
+  {base:2,vals:[1,2,4,8,16,32,64,128,256,512,1024]},
+  {base:3,vals:[1,3,9,27,81,243,729]},
+  {base:4,vals:[1,4,16,64,256,1024]},
+  {base:5,vals:[1,5,25,125,625]},
+  {base:6,vals:[1,6,36,216]},
+  {base:7,vals:[1,7,49,343]},
 ];
 /* Presets leves — ~30 min dias úteis, ~1h30 fim de semana. Chave = dia JS (0=Dom..6=Sáb) */
 const PRESETS={
@@ -825,33 +848,35 @@ function renderInsights(){
   el.innerHTML=items.map(it=>{const a=AREA_MAP[it.ak],dt=parseKey(it.key),ct=it.ct&&CT_MAP[it.ct];
     return`<div class="insitem"><div class="meta"><span class="tag" style="background:${a.color}">${a.name}</span>${ct?`<span class="cttag">${ct.name}</span>`:""}<span class="date">${dt.getDate()} ${MON[dt.getMonth()]}</span><button class="delins" data-delins="${it.key}|${it.ak}" aria-label="Apagar insight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button></div><div class="txt">${escapeHtml(it.txt)}</div></div>`;}).join("");
 }
-/* Treino (jogo) de conversões fração → % */
+/* Treino (jogo): conversões (fração→decimal/%) e potências */
 let quiz={}, quizTotal=0, quizCorrect=0, quizStreak=0;
-const ALL_FRACS=CONVERSIONS.flatMap(g=>g.f);
-function quizPct(n,d){let p=Math.round(n/d*1000)/10;return (Number.isInteger(p)?p:p.toFixed(1))+"%";}
-function quizDec(n,d){return (n/d).toFixed(3);}
+function quizPick(correct,pool){const p=pool.slice(),d=[];while(d.length<3&&p.length)d.push(p.splice(Math.floor(Math.random()*p.length),1)[0]);const o=[correct,...d];for(let i=o.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[o[i],o[j]]=[o[j],o[i]];}return o;}
 function newQuiz(){
-  const[n,d]=ALL_FRACS[Math.floor(Math.random()*ALL_FRACS.length)];
-  const mode=Math.random()<0.5?"pct":"dec";
-  const fmt=mode==="pct"?quizPct:quizDec;
-  const correct=fmt(n,d);
-  const pool=[...new Set(ALL_FRACS.map(([a,b])=>fmt(a,b)))].filter(x=>x!==correct);
-  const distr=[];while(distr.length<3&&pool.length)distr.push(pool.splice(Math.floor(Math.random()*pool.length),1)[0]);
-  const options=[correct,...distr];
-  for(let i=options.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[options[i],options[j]]=[options[j],options[i]];}
-  quiz={n,d,mode,correct,options,answered:false,picked:null};
+  if(Math.random()<0.5){ // conversão fração → decimal ou porcentagem
+    const e=CONVERSIONS[Math.floor(Math.random()*CONVERSIONS.length)];
+    const mode=Math.random()<0.5?"dec":"pct";
+    const correct=mode==="dec"?e.dec:e.pct;
+    const pool=[...new Set(CONVERSIONS.map(x=>mode==="dec"?x.dec:x.pct))].filter(x=>x!==correct);
+    quiz={label:`Quanto é, em ${mode==="dec"?"decimal":"porcentagem"}?`,main:e.frac,correct,options:quizPick(correct,pool),reveal:`${e.frac} = ${e.dec} = ${e.pct}`,answered:false,picked:null};
+  } else { // potência
+    const b=EXPONENTS[Math.floor(Math.random()*EXPONENTS.length)];
+    const i=Math.floor(Math.random()*b.vals.length);
+    const correct=String(b.vals[i]);
+    const pool=[...new Set(EXPONENTS.flatMap(e=>e.vals).map(String))].filter(x=>x!==correct);
+    quiz={label:"Quanto é?",main:`${b.base}<sup>${i}</sup>`,correct,options:quizPick(correct,pool),reveal:`${b.base}<sup>${i}</sup> = ${b.vals[i]}`,answered:false,picked:null};
+  }
   renderQuiz();
 }
 function renderQuiz(){
   const sc=document.getElementById("quizScore");if(!sc||!quiz.options)return;
   sc.innerHTML=`Acertos <b>${quizCorrect}/${quizTotal}</b> · Sequência <b>${quizStreak}</b> · Recorde <b>${state.quizBest||0}</b>`;
-  document.getElementById("quizQ").innerHTML=`<small>Quanto é, em ${quiz.mode==="dec"?"decimal":"porcentagem"}?</small>${quiz.n}/${quiz.d}`;
+  document.getElementById("quizQ").innerHTML=`<small>${quiz.label}</small>${quiz.main}`;
   document.getElementById("quizOpts").innerHTML=quiz.options.map(o=>{
     let cls="quizopt";
     if(quiz.answered){if(o===quiz.correct)cls+=" correct";else if(o===quiz.picked)cls+=" wrong";else cls+=" dim";}
     return `<button class="${cls}" data-opt="${o}" ${quiz.answered?"disabled":""}>${o}</button>`;
   }).join("");
-  document.getElementById("quizReveal").textContent=quiz.answered?`${quiz.n}/${quiz.d} = ${quizDec(quiz.n,quiz.d)} = ${quizPct(quiz.n,quiz.d)}`:"";
+  document.getElementById("quizReveal").innerHTML=quiz.answered?quiz.reveal:"";
   document.getElementById("quizNext").style.display=quiz.answered?"flex":"none";
 }
 function answerQuiz(o){
@@ -863,16 +888,15 @@ function answerQuiz(o){
 }
 function renderConversions(){
   const el=document.getElementById("convBody");if(!el)return;
-  const pct=(n,d)=>{let p=Math.round(n/d*1000)/10;return (Number.isInteger(p)?p:p.toFixed(1))+"%";};
-  let rows="";
-  CONVERSIONS.forEach(gr=>{
-    rows+=`<tr class="grouprow"><td colspan="3">${gr.g}</td></tr>`;
-    gr.f.forEach(([n,d])=>{rows+=`<tr><td class="frac">${n}/${d}</td><td class="n">${(n/d).toFixed(3)}</td><td class="n">${pct(n,d)}</td></tr>`;});
-  });
+  const rows=CONVERSIONS.map(e=>`<tr><td class="frac">${e.frac}</td><td class="n">${e.dec}</td><td class="n">${e.pct}</td></tr>`).join("");
   el.innerHTML=`<table class="convtable"><thead><tr><th>Fração</th><th style="text-align:right">Decimal</th><th style="text-align:right">Porcentagem</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
+function renderExponents(){
+  const el=document.getElementById("expBody");if(!el)return;
+  el.innerHTML=EXPONENTS.map(b=>`<div class="expblock"><div class="exphd">${b.base}<sup>n</sup></div>${b.vals.map((v,i)=>`<div class="exprow"><span>${b.base}<sup>${i}</sup></span><span class="n">${v}</span></div>`).join("")}</div>`).join("");
+}
 function renderPlanEditor(){
-  renderConversions();
+  renderConversions();renderExponents();
   document.getElementById("interviewDate").value=state.config.interviewDate;
   const sd=document.getElementById("startDate");if(sd)sd.value=state.config.startDate||"2026-07-20";
   const rn=document.getElementById("reportName");if(rn)rn.value=state.reportName||"";
